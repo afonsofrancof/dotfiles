@@ -57,10 +57,27 @@ local plugins = packer.startup({function(use)
 			"saadparwaiz1/cmp_luasnip"
 		},
 	}
-	--------------------------------------------------SUGGESTION BOX-----------------------------------------
-	use { "hrsh7th/nvim-cmp",
-		config = function()
-			require "plugins.cmp"
+
+	use {"ms-jpq/coq.artifacts",
+		branch = 'artifacts',
+	}
+
+	use {'stevearc/dressing.nvim'} -- Rename variable pop up 
+
+	use {"windwp/nvim-autopairs",
+    		config = function() require("nvim-autopairs").setup {} end
+	}
+
+
+----	use { "L3MON4D3/LuaSnip",
+--		requires = {
+--			"rafamadriz/friendly-snippets",
+----			"saadparwaiz1/cmp_luasnip"
+--		},
+--	}
+	use {  "williamboman/mason.nvim",
+		config = function ()
+			require "plugins.mason"
 		end
 	}
 	---	use {"ms-jpq/coq_nvim",
