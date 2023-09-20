@@ -103,9 +103,6 @@ lazy.setup({
     },
     -- Rename variable pop up
     'stevearc/dressing.nvim',
-    {
-        'krady21/compiler-explorer.nvim'
-    },
 
     {
         'windwp/nvim-autopairs',
