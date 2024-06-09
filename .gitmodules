@@ -1,12 +1,6 @@
-[submodule ".config/zsh/plugins/.config/zsh/plugins/fast-syntax-highlighting"]
-	path = .config/zsh/plugins/.config/zsh/plugins/fast-syntax-highlighting
-	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
 [submodule ".config/zsh/plugins/fzf-zsh-plugin"]
 	path = .config/zsh/plugins/fzf-zsh-plugin
 	url = https://github.com/unixorn/fzf-zsh-plugin.git
-[submodule ".config/zsh/plugins/fast-syntax-highlighting"]
-	path = .config/zsh/plugins/fast-syntax-highlighting
-	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
 [submodule ".config/zsh/plugins/fzf-tab"]
 	path = .config/zsh/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
@@ -44,5 +38,11 @@
 	path = .config/zsh/prompts/pure
 	url = https://github.com/sindresorhus/pure.git
 [submodule "/Users/afonso/.config/zsh/plugins/zsh-abbr"]
-	path = /Users/afonso/.config/zsh/plugins/zsh-abbr
+	path = .config/zsh/plugins/zsh-abbr
 	url = https://github.com/olets/zsh-abbr
+[submodule ".config/xmonad/xmonad-git"]
+	path = .config/xmonad/xmonad-git
+	url = https://github.com/xmonad/xmonad
+[submodule ".config/xmonad/xmonad-contrib-git"]
+	path = .config/xmonad/xmonad-contrib-git
+	url = https://github.com/xmonad/xmonad-contrib
