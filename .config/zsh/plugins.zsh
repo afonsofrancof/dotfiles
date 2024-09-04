@@ -16,6 +16,6 @@ source $ZDOTDIR/plugins/zsh-macos.plugin.zsh
 
 source $ZDOTDIR/plugins/zsh-git.plugin.zsh
 
-source $ZDOTDIR/plugins/zsh-sudo.plugins.zsh
+source $ZDOTDIR/plugins/zsh-sudo.plugin.zsh
 
-source $ZDOTDIR/plugins/zsh-tmux.plugins.zsh
+source $ZDOTDIR/plugins/zsh-tmux/zsh-tmux.plugin.zsh

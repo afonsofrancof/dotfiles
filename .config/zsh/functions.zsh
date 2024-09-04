@@ -20,8 +20,8 @@ function sourceall(){
 }
 
 
-function routevpn(){
-        sudo route -n add $1 10.8.0.1
+function routevpn {
+        sudo route -n add $@ 10.8.0.1
 }
 
 alias ls="eza --icons -l --sort type"

@@ -43,6 +43,7 @@ fpath+=$ZDOTDIR/plugins/zsh-completions/src
 #Prompt
 fpath+=$ZDOTDIR/prompts/pure
 autoload -U promptinit; promptinit
+PURE_GIT_PULL=0
 prompt pure
 
 source $ZDOTDIR/functions.zsh
