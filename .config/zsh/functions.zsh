@@ -28,3 +28,6 @@ alias ls="eza --icons -l --sort type"
 alias lg="lazygit"
 alias calcurse-caldav='CALCURSE_CALDAV_PASSWORD=$(keyring get caldav afonso) calcurse-caldav'
 alias routes="netstat -rn -f inet"
+
+alias lc='lazygit --work-tree="$HOME" --git-dir="$HOME/dotfiles"'
+alias config='git --work-tree="$HOME" --git-dir="$HOME/dotfiles"'
