@@ -3,6 +3,22 @@ return {
     {
         "stevearc/dressing.nvim",
         event = "VeryLazy",
+        opts = {
+            input = {
+                override = function(conf)
+                    conf.col = -1
+                    conf.row = 0
+                    return conf
+                end,
+            }
+        }
+    },
+    {
+        "smjonas/inc-rename.nvim",
+        opts = {
+            input_buffer_type = "dressing",
+            save_in_cmdline_history = true,
+        }
     },
     {
         "williamboman/mason.nvim",
@@ -165,6 +181,10 @@ return {
                         client.server_capabilities.semanticTokensProvider = nil
                     end
 
+                    local rename_func = function()
+                        return ":IncRename " .. vim.fn.expand("<cword>")
+                    end
+
                     -- Mappings.
                     local bufopts = { noremap = true, silent = true, buffer = ev.buf }
                     vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
@@ -176,7 +196,7 @@ return {
                     vim.keymap.set("n", "gi", fzflua.lsp_implementations, bufopts)
                     vim.keymap.set("n", "<space>k", vim.lsp.buf.signature_help, bufopts)
                     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-                    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+                    vim.keymap.set("n", "<space>rn", rename_func(), bufopts)
                     vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
                     vim.keymap.set("n", "<space>ge", vim.diagnostic.goto_next, bufopts)
                     vim.keymap.set("n", "<space>gE", vim.diagnostic.goto_prev, bufopts)

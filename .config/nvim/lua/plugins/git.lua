@@ -6,5 +6,6 @@ return {
             require("blame").setup()
         end
     },
+    "https://github.com/tpope/vim-fugitive"
 
 }

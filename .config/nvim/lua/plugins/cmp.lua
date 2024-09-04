@@ -1,6 +1,7 @@
 return {
     {
-        "hrsh7th/nvim-cmp",
+        "yioneko/nvim-cmp",
+        branch = "perf",
         event = "VeryLazy",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",                -- lsp
@@ -27,6 +28,10 @@ return {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
                     end,
+                },
+                performance = {
+                    debounce = 0,
+                    throttle = 0,
                 },
                 mapping = {
                     ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
