@@ -15,6 +15,7 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export PATH="/opt/homebrew/opt/texlive/bin:$PATH"
 
 # Setup History
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=100000000
 SAVEHIST=100000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
