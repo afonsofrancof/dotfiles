@@ -59,7 +59,7 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myNormalBorderColor  = "#534783"
-myFocusedBorderColor = "#01F9C6"
+myFocusedBorderColor = "#B8BB26"
 
 myBorderWidth   = 1
 
