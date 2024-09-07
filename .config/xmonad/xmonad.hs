@@ -40,11 +40,11 @@ import qualified Data.Map        as M
 import System.Exit
 
 --Color Scheme
-import Colors.Teal
+import Colors.GruvBox
 
 
 
-myTerminal      = "alacritty"
+myTerminal      = "wezterm"
 myTextEditor    = "nvim"
 myWebBrowser    = "firefox"
 myModMask       = mod4Mask
@@ -138,12 +138,12 @@ myStartupHook = do
     spawnOnce "nitrogen --restore &"
     spawnOnce "playerctld"
     spawnOnce "qpwgraph"
-    spawnOnce "picom &"
+    spawnOnce "killall picom;sleep1;picom &"
     setWMName "LG3D"
     spawnOnce "nm-applet"
     spawnOnce "$HOME/.local/bin/desktopres"
     spawnOnce "xsetroot -cursor_name left_ptr"
-    spawnOnce "killall trayer ;sleep 1 && trayer --monitor 0 --edge top --align right --margin 4 --widthtype request --padding 8 --iconspacing 12 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x2B2E37  --height 30 --distance 5 &"
+    spawnOnce "killall trayer ;sleep 1 && trayer --monitor 0 --edge top --align right --widthtype request --padding 16 --iconspacing 12 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x282828  --height 26 --distancefrom top --distance 4 &"
     spawnOnce "nextcloud"
     spawnOnOnce "web" myWebBrowser
     spawnOnOnce "main" myTerminal
@@ -155,10 +155,10 @@ myXmobarPP :: PP
 myXmobarPP =  def
     { ppSep = ""
     , ppWsSep = ""
-    , ppCurrent = xmobarColor cyan "" . const wsIconFull
-    , ppVisible = xmobarColor grey4 "" . const wsIconFull
-    , ppHidden = xmobarColor grey4 "" . const wsIconFull
-    , ppHiddenNoWindows = xmobarColor grey4 "" . const wsIconFull
+    , ppCurrent = xmobarColor red "" . const wsIconFull
+    , ppVisible = xmobarColor gray0 "" . const wsIconFull
+    , ppHidden = xmobarColor gray0 "" . const wsIconFull
+    , ppHiddenNoWindows = xmobarColor gray0 "" . const wsIconFull
     , ppOrder = \(ws : _ : _ : extras) -> ws : extras
     }
   where
