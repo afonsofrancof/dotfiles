@@ -2,6 +2,7 @@ configuration {
  font: "FiraCode Nerd Font Mono 16";
  show-icons: true;
  }
-@theme "~/.config/rofi/themes/teal.rasi"
+//@theme "~/.config/rofi/themes/teal.rasi"
 
 
+@theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"
