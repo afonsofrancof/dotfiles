@@ -8,14 +8,9 @@ Config {font = "Ubuntu bold 10"
 	  , "Font Awesome 6 Free Solid 17"
 	  , "Font Awesome 6 Free Solid 13"
           ]
-       , bgColor      = "#2B2E37"
-       , fgColor      = "#929AAD"
-       -- Position TopSize and BottomSize take 3 arguments:
-       --   an alignment parameter (L/R/C) for Left, Right or Center.
-       --   an integer for the percentage width, so 100 would be 100%.
-       --   an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
-       --   NOTE: The height should be the same as the trayer (system tray) height.
-       , position       = TopHM 36 8 8 4 0
+       , bgColor      = "#282828"
+       , fgColor      = "#ebdbb2"
+       , position       = TopH 36
        , lowerOnStart = True
        , hideOnStart  = False
        , allDesktops  = True
@@ -23,9 +18,9 @@ Config {font = "Ubuntu bold 10"
        , iconRoot     = "/home/afonso/.config/xmobar/xpm/"  -- default: "."
        , commands = [
                     Run XMonadLog
-		    , Run Date "%a, %d %b   <fn=1></fn>   %H:%M" "date" 10
-		    , Run Mpris2 "playerctld" ["-t", "<fc=#AAC0F0><artist> - <title></fc>"] 10
-            , Run Memory ["-t","<fn=6></fn> <fc=#AAC0F0><usedratio></fc>%"] 50
+		    , Run Date "<fc=#A89984>%a, %d %b   <fn=1></fn>   %H:%M</fc>" "date" 10
+		    , Run Mpris2 "playerctld" ["-t", "<artist> - <title>"] 10
+            , Run Memory ["-t","<fc=#7C6F64><fn=6></fn></fc> <fc=#B8BB26> <usedratio>%</fc>"] 50
 		    , Run Com "/home/afonso/.config/xmobar/scripts/disk.sh" [] "disk" 100
             , Run Com "/home/afonso/.config/xmobar/scripts/cpu_temp.sh" [] "cpu" 50
 		    , Run Com "/home/afonso/.config/xmobar/scripts/battery.sh" [] "battery" 50
@@ -41,7 +36,7 @@ Config {font = "Ubuntu bold 10"
             \%date%\
 	    \<hspace=20/>\
 	    \{\
-	    \Playing:  %mpris2%\
+	    \<fc=#7C6F64>Playing:</fc>  <fc=#B8BB26>%mpris2%</fc>\
             \     \
             \|\
             \     \
@@ -54,10 +49,10 @@ Config {font = "Ubuntu bold 10"
             \%cpu%\
             \     \
             \     \
-	    \%disk%\
-	    \     \
-	    \     \
-	    \%battery%\
-	    \|\
+            \%disk%\
+            \     \
+            \     \
+            \%battery%\
+            \|\
             \%trayerpad%"
        }
