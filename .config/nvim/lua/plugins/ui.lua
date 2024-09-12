@@ -48,4 +48,9 @@ return {
             vim.keymap.set("n", "<leader>z", "<Cmd> ZenMode <CR>", { noremap = true, silent = true }),
         },
     },
+    {
+        "NStefan002/screenkey.nvim",
+        lazy = false,
+        version = "*", -- or branch = "dev", to use the latest commit
+    },
 }
