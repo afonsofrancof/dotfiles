@@ -133,6 +133,8 @@ myEventHook = ewmhDesktopsEventHook
 
 myStartupHook = do
     spawnOnce "dunst &"
+    spawnOnce "lxpolkit"
+    spawnOnce "thunar --daemon"
     spawnOnce "kwalletd6"
     spawnOnce "pasystray"
     spawnOnce "nitrogen --restore &"
@@ -159,7 +161,7 @@ myXmobarPP =  def
     , ppVisible = xmobarColor gray0 "" . const wsIconFull
     , ppHidden = xmobarColor gray0 "" . const wsIconFull
     , ppHiddenNoWindows = xmobarColor gray0 "" . const wsIconFull
-    , ppOrder = \(ws : _ : _ : extras) -> ws : extras
+    , ppOrder = \(ws : _ : t : extras) -> ws : "  " : t : extras
     }
   where
    wsIconFull   = "  <fn=2>\xf111</fn>   "
