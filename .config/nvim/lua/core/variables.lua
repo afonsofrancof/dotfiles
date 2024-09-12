@@ -42,3 +42,7 @@ vim.g.jukit_mappings = 0
 vim.opt.formatoptions:remove("ro")
 --Sign gutter always on
 vim.opt.signcolumn = "yes"
+-- sync buffers automatically
+vim.opt.autoread = true
+-- disable swapfile
+vim.opt.swapfile = false
