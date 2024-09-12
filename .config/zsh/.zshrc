@@ -1,19 +1,3 @@
-# Add paths
-export PATH="/usr/sbin:/sbin:$PATH"
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-export PATH="$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.ghcup/bin:$PATH"
-export PATH="$HOME/.miniforge3/bin:$PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
-export GOPATH=$HOME/.go
-export PATH=$PATH:$GOPATH/bin
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-export PATH="/opt/homebrew/opt/texlive/bin:$PATH"
-
 # Setup History
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=100000000
