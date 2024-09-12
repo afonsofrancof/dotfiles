@@ -36,11 +36,6 @@ setxkbmap -option grp:alt_space_toggle
 setxkbmap -option caps:escape
 xset r rate 300 40
 
-#gpu_mode=$(/usr/bin/envycontrol -q)
-#if [ "$gpu_mode" = "nvidia" ]; then
-    #xrandr --setprovideroutputsource modesetting NVIDIA-0
-    #xrandr --auto
-#fi
-
+. $ZDOTDIR/.zshenv
 
 exec /home/afonso/.local/bin/xmonad
