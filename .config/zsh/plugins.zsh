@@ -5,10 +5,8 @@ source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-searc
 
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-zvm_after_init_commands+=('[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh')
+zvm_after_init_commands+=('source <(fzf --zsh) && enable-fzf-tab')
 source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-enable-fzf-tab
 
 source $ZDOTDIR/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
