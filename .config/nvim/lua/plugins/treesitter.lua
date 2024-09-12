@@ -13,8 +13,7 @@ return {
 
 
             local options = {
-                ensure_installed = { "c", "lua", "haskell", "markdown" },
-
+                auto_install = true,
                 highlight = {
                     enable = true,
                     use_languagetree = true,
