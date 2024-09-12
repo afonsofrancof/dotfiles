@@ -31,3 +31,15 @@ alias routes="netstat -rn -f inet"
 
 alias lc='lazygit --work-tree="$HOME" --git-dir="$HOME/dotfiles"'
 alias config='git --work-tree="$HOME" --git-dir="$HOME/dotfiles"'
+
+function qmk_flash_right(){
+    echo "Flashing right side, waiting 5 seconds"
+    sleep 5
+    qmk flash -kb lily58 -km afonso -bl avrdude-split-right
+}
+
+function qmk_flash_left(){
+    echo "Flashing left side, waiting 5 seconds"
+    sleep 5
+    qmk flash -kb lily58 -km afonso -bl avrdude-split-left
+}
