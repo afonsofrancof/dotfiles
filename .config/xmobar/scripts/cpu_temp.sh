@@ -13,10 +13,10 @@ else
 fi
 
 if [ "$temp" -ge "$temp2" ] ; then
-    echo "<fc=#7C6F64><fn=6></fn></fc> <fc=#FB4934> $temp°C</fc>"
+    echo "<fc=#D79921><fn=6></fn></fc> <fc=#FB4934> $temp°C</fc>"
 elif [ "$temp" -ge "$temp1" ] ; then
-    echo "<fc=#7C6F64><fn=6></fn></fc> <fc=#FE8019> $temp°C</fc>"
+    echo "<fc=#D79921><fn=6></fn></fc> <fc=#FE8019> $temp°C</fc>"
 else
-    echo "<fc=#7C6F64><fn=6></fn></fc> <fc=#B8BB26> $temp°C</fc>"
+    echo "<fc=#D79921><fn=6></fn></fc> <fc=#B8BB26> $temp°C</fc>"
 
 fi
