@@ -43,3 +43,5 @@ function qmk_flash_left(){
     sleep 5
     qmk flash -kb lily58 -km afonso -bl avrdude-split-left
 }
+
+alias nvim_update='nvim --headless "+Lazy! sync" +qa'
