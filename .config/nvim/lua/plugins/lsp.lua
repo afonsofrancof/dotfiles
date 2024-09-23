@@ -17,7 +17,7 @@ return {
         "smjonas/inc-rename.nvim",
         opts = {
             input_buffer_type = "dressing",
-            save_in_cmdline_history = true,
+            save_in_cmdline_history = false,
         }
     },
     {
@@ -165,6 +165,7 @@ return {
         config = function()
             local lspconfig = require("lspconfig")
 
+
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -187,6 +188,7 @@ return {
 
                     -- Mappings.
                     local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+                    local bufopts_expr = { expr = true }
                     vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
                     vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, bufopts)
                     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
@@ -196,7 +198,7 @@ return {
                     vim.keymap.set("n", "gi", fzflua.lsp_implementations, bufopts)
                     vim.keymap.set("n", "<space>k", vim.lsp.buf.signature_help, bufopts)
                     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-                    vim.keymap.set("n", "<space>rn", rename_func(), bufopts)
+                    vim.keymap.set("n", "<space>rn", rename_func, bufopts_expr)
                     vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
                     vim.keymap.set("n", "<space>ge", vim.diagnostic.goto_next, bufopts)
                     vim.keymap.set("n", "<space>gE", vim.diagnostic.goto_prev, bufopts)
@@ -213,15 +215,11 @@ return {
                 capabilities = capabilities,
                 filetypes = { 'haskell', 'lhaskell', 'cabal' },
             })
-
-            lspconfig["sourcekit"].setup({
-                capabilities = capabilities,
-            })
         end,
     },
     {
         'mrcjkb/rustaceanvim',
-        version = '^4', -- Recommended
+        version = '^5', -- Recommended
         lazy = false,   -- This plugin is already lazy
     },
     {
