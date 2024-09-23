@@ -21,14 +21,10 @@ export READER=mupdf
 #THEME
 source $ZDOTDIR/themes/gruvbox_dark.zsh
 
-#Completions
-autoload -U compinit && compinit
-fpath+=$ZDOTDIR/plugins/zsh-completions/src
-
 #Prompt
 fpath+=$ZDOTDIR/prompts/pure
 autoload -U promptinit; promptinit
-PURE_GIT_PULL=0
+export PURE_GIT_PULL=0
 prompt pure
 
 source $ZDOTDIR/functions.zsh
