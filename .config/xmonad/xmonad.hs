@@ -117,6 +117,7 @@ myManageHook = composeAll
   , resource  =? "desktop_window" --> doIgnore
   , className =? "QjackCtl"       --> doFloat
   , resource  =? "kdesktop"       --> doIgnore
+  , title     =? "Picture-in-Picture" --> doFloat
   , className =? "firefox"        --> doShift (myWorkspaces !! 1)
   , className =? "Code"        --> doShift (myWorkspaces !! 3)
   , className =? "discord"        --> doShift (myWorkspaces !! 4)
@@ -132,14 +133,14 @@ myManageHook = composeAll
 myEventHook = ewmhDesktopsEventHook
 
 myStartupHook = do
+    spawnOnce "keepassxc"
     spawnOnce "dunst &"
     spawnOnce "lxpolkit"
     spawnOnce "thunar --daemon"
-    spawnOnce "kwalletd6"
     spawnOnce "pasystray"
     spawnOnce "nitrogen --restore &"
     spawnOnce "playerctld"
-    spawnOnce "qpwgraph"
+    spawnOnce "qpwgraph -m"
     spawnOnce "killall picom;sleep1;picom &"
     setWMName "LG3D"
     spawnOnce "nm-applet"
