@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -Wno-deprecations #-}
 
-
 import XMonad
+
 
 --Utils
 import XMonad.Util.EZConfig (additionalKeysP,removeKeysP)
@@ -25,6 +25,7 @@ import XMonad.Actions.UpdateFocus (focusUnderPointer)
 --Layouts
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
+import XMonad.Layout.PerScreen
 
 
 -- MultiMonitorFocusHook
@@ -46,7 +47,7 @@ import Colors.GruvBox
 
 myTerminal      = "wezterm"
 myTextEditor    = "nvim"
-myWebBrowser    = "firefox"
+myWebBrowser    = "zen-browser"
 myModMask       = mod4Mask
 
 myFocusFollowsMouse :: Bool
@@ -137,6 +138,7 @@ myStartupHook = do
     spawnOnce "dunst &"
     spawnOnce "lxpolkit"
     spawnOnce "thunar --daemon"
+    spawnOnce "sensors"
     spawnOnce "pasystray"
     spawnOnce "nitrogen --restore &"
     spawnOnce "playerctld"
@@ -167,7 +169,7 @@ myXmobarPP =  def
   where
    wsIconFull   = "  <fn=2>\xf111</fn>   "
 
-myLayoutHook = (Tall 1 (3/100) (0.5)) ||| (Mirror $ Tall 1 (3/100) (0.5))
+myLayoutHook = ifWider 1080 (Tall 1 (3/100) (1/2)) (Mirror $ Tall 1 (3/100) (1/2)) ||| Full
 
 myConfig =  def
     {
