@@ -1,33 +1,44 @@
 [submodule ".config/zsh/plugins/fzf-tab"]
 	path = .config/zsh/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
+	branch = master
 [submodule ".config/zsh/plugins/zsh-autosuggestions"]
 	path = .config/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+	branch = master
 [submodule ".config/zsh/plugins/zsh-completions"]
 	path = .config/zsh/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
+	branch = master
 [submodule ".config/zsh/plugins/zsh-history-substring-search"]
 	path = .config/zsh/plugins/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
+	branch = master
 [submodule ".config/zsh/plugins/zsh-syntax-highlighting"]
 	path = .config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+	branch = master
 [submodule ".config/zsh/plugins/zsh-vi-mode"]
 	path = .config/zsh/plugins/zsh-vi-mode
 	url = https://github.com/jeffreytse/zsh-vi-mode
+	branch = master
 [submodule ".config/zsh/prompts/pure"]
 	path = .config/zsh/prompts/pure
 	url = https://github.com/sindresorhus/pure
+	branch = main
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+	branch = master
 [submodule ".config/xmonad/xmonad-git"]
 	path = .config/xmonad/xmonad-git
 	url = https://github.com/xmonad/xmonad
+	branch = master
 [submodule ".config/xmonad/xmonad-contrib-git"]
 	path = .config/xmonad/xmonad-contrib-git
 	url = https://github.com/xmonad/xmonad-contrib
+	branch = master
 [submodule ".config/xmobar/xmobar-git"]
 	path = .config/xmobar/xmobar-git
 	url = https://codeberg.org/xmobar/xmobar
+	branch = master
