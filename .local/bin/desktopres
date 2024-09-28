@@ -1,2 +1,3 @@
 #!/bin/sh
 nvidia-settings --assign CurrentMetaMode="DP-0: nvidia-auto-select +0+0 {AllowGSYNCCompatible=On}, HDMI-0: nvidia-auto-select +2560+0 {rotation=right}"
+xrandr --dpi 109
