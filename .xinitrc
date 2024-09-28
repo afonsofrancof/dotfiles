@@ -31,9 +31,16 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-setxkbmap -layout us,pt
-setxkbmap -option grp:alt_space_toggle
-setxkbmap -option caps:escape
+. $HOME/.local/bin/desktopres
+
+
+# Don't forget to run this command
+#localectl set-x11-keymap us,pt pc104 , grp:alt_space_toggle,caps:escape
+
+# These are backup
+#setxkbmap -layout us,pt
+#setxkbmap -option grp:alt_space_toggle
+#setxkbmap -option caps:escape
 xset r rate 300 40
 
 . $ZDOTDIR/.zshenv
