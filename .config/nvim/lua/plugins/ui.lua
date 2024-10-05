@@ -8,20 +8,21 @@ return {
             vim.g.tpipeline_statusline = '%=%l:%c'
         end
     },
-    {
-        'echasnovski/mini.notify',
-        version = false,
-        config = function()
-            vim.api.nvim_set_hl(0, 'MiniNotifyNormal', { link = 'Normal' })
-            vim.api.nvim_set_hl(0, 'MiniNotifyBorder', { link = 'Normal' })
-            require("mini.notify").setup()
-        end
-    },
     --Better quick fix
     {
         'kevinhwang91/nvim-bqf',
         event = "VeryLazy",
         ft = 'qf'
+    },
+    {
+        "j-hui/fidget.nvim",
+        opts = {
+            progress = {
+                display = {
+                    render_limit = 3,
+                }
+            }
+        },
     },
     {
         "OXY2DEV/markview.nvim",
