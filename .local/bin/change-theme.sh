@@ -39,7 +39,9 @@ change_common(){
     tmux source-file ~/.config/tmux/tmux.conf
 
     echo "vim.cmd('colorscheme ${nvim_color_scheme}')" >> ~/.config/nvim/lua/core/theme.lua
-    nvim --server /tmp/nvim.pipe --remote-send ":colorscheme ${nvim_color_scheme}<CR>" || true
+    for addr in $XDG_RUNTIME_DIR/nvim.*; do
+        nvim --server $addr --remote-send ':colorscheme ${nvim_color_scheme}<CR>' || true
+    done
 }
 
 case $1 in
