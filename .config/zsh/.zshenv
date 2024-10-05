@@ -1,10 +1,11 @@
 #This is used to reload the instance
-TRAPUSR1() {
-    if [[ -o INTERACTIVE ]]; then
-        exec "${SHELL}"
-    fi
+if [[ ! $(tty) =~ ^/dev/tty[0-9]*$ ]]; then
+    TRAPUSR1() {
+        if [[ -o INTERACTIVE ]]; then
+            exec "${SHELL}"
+        fi
 }
-
+fi
 
 # Add exports
 if [[ $(uname) == "Darwin" ]]; then
