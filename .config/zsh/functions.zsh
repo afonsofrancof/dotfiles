@@ -1,12 +1,12 @@
 function vim {
     if [[ -z "$@" ]]; then
         if [[ -f "./.session.vim" ]]; then
-            nvim -S .session.vim --listen /tmp/nvim.pipe -c 'lua vim.g.savesession = true'
+            nvim -S .session.vim -c 'lua vim.g.savesession = true'
         else
-            nvim --listen /tmp/nvim.pipe -c 'lua vim.g.savesession = true'
+            nvim -c 'lua vim.g.savesession = true'
         fi
     else
-        nvim --listen /tmp/nvim.pipe "$@"
+        nvim "$@"
     fi
 }
 
