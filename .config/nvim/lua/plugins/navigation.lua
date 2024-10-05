@@ -21,16 +21,19 @@ return {
         opts = {},
     },
     {
-        "alexghergh/nvim-tmux-navigation",
-        event = "VeryLazy",
-        opts = {
-            disable_when_zoomed = true, -- defaults to false
-            keybindings = {
-                left = "<F5>",
-                down = "<F6>",
-                up = "<F7>",
-                right = "<F8>",
-            },
-        },
+        'mrjones2014/smart-splits.nvim',
+        config = function()
+            require('smart-splits').setup({})
+            --Resize
+            vim.keymap.set('n', '<S-F5>', require('smart-splits').resize_left)
+            vim.keymap.set('n', '<S-F6>', require('smart-splits').resize_down)
+            vim.keymap.set('n', '<S-F7>', require('smart-splits').resize_up)
+            vim.keymap.set('n', '<S-F8>', require('smart-splits').resize_right)
+            --Move
+            vim.keymap.set('n', '<F5>', require('smart-splits').move_cursor_left)
+            vim.keymap.set('n', '<F6>', require('smart-splits').move_cursor_down)
+            vim.keymap.set('n', '<F7>', require('smart-splits').move_cursor_up)
+            vim.keymap.set('n', '<F8>', require('smart-splits').move_cursor_right)
+        end
     },
 }
