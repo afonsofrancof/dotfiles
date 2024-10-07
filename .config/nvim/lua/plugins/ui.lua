@@ -8,12 +8,6 @@ return {
             vim.g.tpipeline_statusline = '%=%l:%c'
         end
     },
-    --Better quick fix
-    {
-        'kevinhwang91/nvim-bqf',
-        event = "VeryLazy",
-        ft = 'qf'
-    },
     {
         "j-hui/fidget.nvim",
         opts = {
@@ -23,6 +17,12 @@ return {
                 }
             }
         },
+    },
+    --Better quick fix
+    {
+        'kevinhwang91/nvim-bqf',
+        event = "VeryLazy",
+        ft = 'qf'
     },
     {
         "OXY2DEV/markview.nvim",

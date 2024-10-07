@@ -242,9 +242,13 @@ return {
 
     {
         "lervag/vimtex",
-        event = "VeryLazy",
+        filetypes = {"tex"},
         config = function()
-            vim.g.vimtex_view_method = 'skim'
+            if vim.loop.os_uname().sysname == "Darwin" then
+                vim.g.vimtex_view_method = 'skim'
+            else
+                vim.g.vimtex_view_method = 'zathura'
+            end
             vim.g.vimtex_compiler_methor = 'pdflatex'
         end,
     },

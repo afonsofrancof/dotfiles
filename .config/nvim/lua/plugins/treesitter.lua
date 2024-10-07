@@ -16,8 +16,8 @@ return {
                 auto_install = true,
                 highlight = {
                     enable = true,
+                    disable = { "latex" },
                     use_languagetree = true,
-                    additional_vim_regex_highlighting = { "org" },
                 },
                 indent = {
                     enable = true,
