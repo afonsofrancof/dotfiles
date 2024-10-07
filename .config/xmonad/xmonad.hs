@@ -47,7 +47,7 @@ import Colors.GruvBox
 
 myTerminal      = "wezterm"
 myTextEditor    = "nvim"
-myWebBrowser    = "zen-browser"
+myWebBrowser    = "firefox"
 myModMask       = mod4Mask
 
 myFocusFollowsMouse :: Bool
