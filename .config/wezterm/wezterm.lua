@@ -5,6 +5,9 @@ local config = wezterm.config_builder()
 --Font config
 config.font_size = 16
 
+--Disable ligatures
+config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
+
 --Color scheme
 config.color_scheme = 'Gruvbox dark, hard (base16)'
 
