@@ -199,7 +199,7 @@ return {
                     vim.keymap.set("n", "<space>k", vim.lsp.buf.signature_help, bufopts)
                     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
                     vim.keymap.set("n", "<space>rn", rename_func, bufopts_expr)
-                    vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+                    vim.keymap.set({"n","v"}, "<space>ca", vim.lsp.buf.code_action, bufopts)
                     vim.keymap.set("n", "<space>ge", vim.diagnostic.goto_next, bufopts)
                     vim.keymap.set("n", "<space>gE", vim.diagnostic.goto_prev, bufopts)
                     vim.keymap.set("n", "<space>fo", function() conform.format({ lsp_fallback = true }) end, bufopts)

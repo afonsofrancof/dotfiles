@@ -108,6 +108,16 @@ return {
                 }, {
                     { name = "buffer", keyword_length = 5 },
                 }),
+                window = {
+                    completion = {
+                        border = "rounded",
+                        winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+                    },
+                    documentation = {
+                        border = "rounded",
+                        winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+                    },
+                }
             })
 
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
