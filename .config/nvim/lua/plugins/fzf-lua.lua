@@ -8,7 +8,6 @@ return {
             fzflua.register_ui_select()
             fzflua.setup({
                 defaults = {
-                    headers = false,
                     winopts = {
                         border = "single",
                         width = 0.6,
@@ -19,7 +18,7 @@ return {
                     previewer = false,
                     winopts = {
                         width = 0.5,
-                        height = 0.3,
+                        height = 0.5,
                     }
                 },
                 grep = {
@@ -37,6 +36,7 @@ return {
             vim.keymap.set('n', '<leader>fg', fzflua.live_grep, {})
             vim.keymap.set('n', '<leader>fb', fzflua.buffers, {})
             vim.keymap.set('n', '<leader>fh', fzflua.help_tags, {})
+            vim.keymap.set({'n','v'}, '<leader>fc', fzflua.commands, {})
         end
     }
 }

@@ -22,4 +22,34 @@ return {
             })
         end,
     },
+
+    {
+        "epwalsh/obsidian.nvim",
+        version = "v3.9.0",
+        lazy = true,
+        ft = "markdown",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "tese",
+                    path = "~/vaults/uni/tese/",
+                },
+                {
+                    name = "chronolens",
+                    path = "~/vaults/uni/chronolens/",
+                },
+            },
+            completion = {
+                nvim_cmp = true,
+                min_chars = 2,
+            },
+            picker = {
+                name = "fzf-lua",
+            },
+
+        },
+    }
 }
