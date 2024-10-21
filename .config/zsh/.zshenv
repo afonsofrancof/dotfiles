@@ -30,6 +30,11 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.miniforge3/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
 
+#Android stuff
+export ANDROID_HOME=~/android/sdk
+export ANDROID_TOOLS_PATHS=$ANDROID_HOME/cmdline-tools/latest/bin:
+export PATH=$ANDROID_TOOLS_PATHS:$PATH:
+
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
