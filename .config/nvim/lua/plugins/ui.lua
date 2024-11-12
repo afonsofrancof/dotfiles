@@ -9,21 +9,52 @@ return {
         end
     },
     {
-        "j-hui/fidget.nvim",
-        opts = {
-            progress = {
-                display = {
-                    render_limit = 3,
-                }
-            }
-        },
-    },
-    --Better quick fix
-    {
         'kevinhwang91/nvim-bqf',
         event = "VeryLazy",
         ft = 'qf'
     },
+
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            views = {
+                cmdline_popup = {
+                    position = {
+                        row = "100%",
+                        col = "0%",
+                    },
+                    size = {
+                        min_width = 60,
+                        width = "auto",
+                        height = "auto",
+                    },
+                },
+                cmdline_popupmenu = {
+                    relative = "editor",
+                    position = {
+                        row = "85%",
+                        col = "0%",
+                    },
+                },
+            },
+            lsp = {
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+            },
+            presets = {
+                long_message_to_split = true, -- long messages will be sent to a split
+                inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+            },
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        }
+    },
+
     -- {
     --     "OXY2DEV/markview.nvim",
     --     ft = "markdown",

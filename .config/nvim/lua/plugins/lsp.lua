@@ -16,7 +16,6 @@ return {
     {
         "smjonas/inc-rename.nvim",
         opts = {
-            input_buffer_type = "dressing",
             save_in_cmdline_history = false,
         }
     },

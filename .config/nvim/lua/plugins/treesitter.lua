@@ -28,13 +28,6 @@ return {
         end
     },
     {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = "VeryLazy",
-        config = function()
-            require 'treesitter-context'.setup()
-        end,
-    },
-    {
         'echasnovski/mini.ai',
         event = "VeryLazy",
         version = false,
