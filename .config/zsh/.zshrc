@@ -47,9 +47,8 @@ unset __conda_setup
 if [ -f "$HOME/.miniforge3/etc/profile.d/mamba.sh" ]; then
     . "$HOME/.miniforge3/etc/profile.d/mamba.sh"
 fi
-
 # <<< conda initialize <<<
-eval "$(direnv hook zsh)"
+
 if [[ $(uname) == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
