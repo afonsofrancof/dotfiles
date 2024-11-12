@@ -46,6 +46,4 @@ vim.opt.signcolumn = "yes"
 vim.opt.autoread = true
 -- disable swapfile
 vim.opt.swapfile = false
---Make completion stop on command ambiguity
-vim.opt.wildmenu = true
-vim.opt.wildmode = 'longest:full,full'
+vim.opt.laststatus = 3
