@@ -14,6 +14,8 @@ if [[ $(uname) == "Darwin" ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
     export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
     export PATH="/opt/homebrew/opt/texlive/bin:$PATH"
+    export GEM_HOME=$HOME/.gem
+    export PATH=$PATH:$GEM_HOME/bin
 else
     #ONLY LINUX
     export LIBVA_DRIVER_NAME=nvidia
@@ -40,3 +42,4 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 
+. "$HOME/.cargo/env"
