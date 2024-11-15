@@ -26,7 +26,7 @@ return {
                     },
                     size = {
                         min_width = 60,
-                        width = "auto",
+                        width = "97%",
                         height = "auto",
                     },
                 },
@@ -46,6 +46,7 @@ return {
                 },
             },
             presets = {
+                command_palette = true,
                 long_message_to_split = true, -- long messages will be sent to a split
                 inc_rename = true,            -- enables an input dialog for inc-rename.nvim
             },
