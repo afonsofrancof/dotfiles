@@ -20,6 +20,17 @@ return {
         }
     },
     {
+        "ThePrimeagen/refactoring.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        lazy = false,
+        config = function()
+            require("refactoring").setup()
+        end,
+    },
+    {
         "williamboman/mason.nvim",
         event = "VeryLazy",
         config = function()
@@ -287,11 +298,15 @@ return {
         config = function()
             if vim.loop.os_uname().sysname == "Darwin" then
                 vim.g.vimtex_view_method = 'skim'
+                vim.g.vimtex_view_skim_sync = 1
+                vim.g.vimtex_view_skim_activate = 1
             else
                 vim.g.vimtex_view_method = 'zathura'
             end
-            vim.g.vimtex_compiler_method = 'generic'
-            vim.g.vimtex_compiler_generic = { command = 'ls *.tex | entr -n -c tectonic /_ --synctex --keep-logs' }
+            vim.g.vimtex_compiler_method = 'latexmk'
+            vim.g.vimtex_view_automatic = 0
+            -- vim.g.vimtex_compiler_generic = { command =
+            -- 'ls *.tex | entr -n -c tectonic /_ --synctex --keep-intermediates --reruns 0' }
         end,
     },
     {
