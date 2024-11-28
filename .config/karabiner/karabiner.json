@@ -13,6 +13,7 @@
                                         "bundle_identifiers": [
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
+                                            "com.mitchellh.ghostty",
                                             "net.kovidgoyal.kitty",
                                             "com.github.wez.wezterm"
                                         ],
