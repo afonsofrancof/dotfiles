@@ -22,7 +22,6 @@ return {
             })
         end,
     },
-
     {
         "epwalsh/obsidian.nvim",
         version = "v3.9.0",
