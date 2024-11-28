@@ -21,8 +21,9 @@ return {
             local luasnip = require("luasnip")
             require("luasnip/loaders/from_vscode").lazy_load()
 
-            local lspkind = require("lspkind")
+            vim.opt.pumheight = 15
 
+            local lspkind = require("lspkind")
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -58,22 +59,33 @@ return {
                     end),
                 },
                 formatting = {
-                    fields = { "kind", "abbr", "menu" },
-                    format = lspkind.cmp_format({
-                        mode = "symbol_text",
-                        maxwidth = 50,
-                        ellipsis_char = "...",
-                        show_labelDetails = true,
-
-                        before = function(entry, vim_item)
-                            vim_item.menu = ({
-                                nvim_lsp = "[LSP]",
-                                nvim_lua = "[NVIM LSP]",
-                                path = "[Path]",
-                            })[entry.source.name]
-                            return vim_item
-                        end,
-                    }),
+                    fields = { "kind", "abbr" },
+                    format = function(entry, vim_item)
+                        local formatted_entry = lspkind.cmp_format({
+                            mode = "symbol",
+                            maxwidth = {
+                                menu = 0
+                            },
+                            show_labelDetails = false
+                        })(entry, vim_item)
+                        formatted_entry.kind = (formatted_entry.kind or "") .. " "
+                        -- local item = entry:get_completion_item()
+                        -- if item.detail then
+                        --     local detail = item.detail
+                        --     if string.find(detail, "->") ~= nil then
+                        --         local return_arrow = vim.split(detail, "->", { trimempty = true })
+                        --         detail = vim.trim(return_arrow[2] or "")
+                        --     end
+                        --     if string.len(detail) <= 10 then
+                        --         print("<=10 " .. detail)
+                        --         formatted_entry.menu = detail
+                        --     else
+                        --         print(">10 " .. detail)
+                        --         formatted_entry.menu = nil
+                        --     end
+                        -- end
+                        return formatted_entry
+                    end
                 },
                 preselect = cmp.PreselectMode.None,
                 sorting = {
@@ -82,9 +94,6 @@ return {
                         cmp.config.compare.offset,
                         cmp.config.compare.exact,
                         cmp.config.compare.score,
-                        cmp.config.compare.kind,
-                        cmp.config.compare.recently_used,
-                        cmp.config.compare.locality,
 
                         --Make entries that start with underline appear after
                         function(entry1, entry2)
@@ -98,12 +107,17 @@ return {
                                 return true
                             end
                         end,
+
+                        cmp.config.compare.kind,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
                     },
                 },
                 sources = cmp.config.sources({
                     { name = "nvim_lua" },
                     { name = "nvim_lsp" },
-                    { name = "luasnip" },
+                    --{ name = "luasnip" },
                     { name = "path" },
                 }, {
                     { name = "buffer", keyword_length = 5 },
@@ -117,7 +131,11 @@ return {
                         border = "rounded",
                         winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
                     },
-                }
+                },
+                experimental = {
+                    native_menu = false,
+                    ghost_text = false,
+                },
             })
 
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
