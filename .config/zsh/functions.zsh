@@ -45,3 +45,14 @@ function qmk_flash_left(){
 }
 
 alias nvim_update='nvim --headless "+Lazy! sync" +qa'
+
+alias ..="cd .."
+
+function cd()
+{
+  builtin cd "$@" && ls;
+}
+
+
+
+

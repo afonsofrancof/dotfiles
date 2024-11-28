@@ -32,6 +32,9 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.miniforge3/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
 
+export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
+
 #Android stuff
 export ANDROID_HOME=~/android/sdk
 export ANDROID_TOOLS_PATHS=$ANDROID_HOME/cmdline-tools/latest/bin:
