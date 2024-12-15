@@ -19,25 +19,9 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
-            views = {
-                cmdline_popup = {
-                    position = {
-                        row = "100%",
-                        col = "0%",
-                    },
-                    size = {
-                        min_width = 60,
-                        width = "97%",
-                        height = "auto",
-                    },
-                },
-                cmdline_popupmenu = {
-                    relative = "editor",
-                    position = {
-                        row = "85%",
-                        col = "0%",
-                    },
-                },
+            cmdline = {
+                enabled = true,
+                view = "cmdline",
             },
             lsp = {
                 override = {
@@ -47,49 +31,12 @@ return {
                 },
             },
             presets = {
-                command_palette = true,
-                long_message_to_split = true, -- long messages will be sent to a split
-                inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+                inc_rename = true,
             },
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
         }
-    },
-
-    -- {
-    --     "OXY2DEV/markview.nvim",
-    --     ft = "markdown",
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --         "nvim-tree/nvim-web-devicons",
-    --     },
-    --     opts = {
-    --         modes = { "n", "no", "c" },
-    --         callbacks = {
-    --             on_enable = function(_, win)
-    --                 vim.wo[win].conceallevel = 2;
-    --                 vim.wo[win].concealcursor = "c";
-    --             end
-    --         }
-    --     }
-    -- },
-    {
-        "karb94/neoscroll.nvim",
-        config = function()
-            local neoscroll = require('neoscroll')
-            neoscroll.setup({
-                hide_cursor = false,
-            })
-            local keymap = {
-                ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 150 }) end,
-                ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 150 }) end,
-            }
-            local modes = { 'n', 'v', 'x' }
-            for key, func in pairs(keymap) do
-                vim.keymap.set(modes, key, func)
-            end
-        end
     },
     {
         "folke/zen-mode.nvim",
@@ -99,8 +46,49 @@ return {
         },
     },
     {
-        "NStefan002/screenkey.nvim",
-        lazy = false,
-        version = "*", -- or branch = "dev", to use the latest commit
-    },
+        'kevinhwang91/nvim-ufo',
+        dependencies = 'kevinhwang91/promise-async',
+        config = function()
+            vim.o.foldcolumn = '1'
+            vim.o.foldlevel = 99
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+            vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+            vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+            local handler = function(virtText, lnum, endLnum, width, truncate)
+                local newVirtText = {}
+                local suffix = (' %d '):format(endLnum - lnum)
+                local sufWidth = vim.fn.strdisplaywidth(suffix)
+                local targetWidth = width - sufWidth
+                local curWidth = 0
+                for _, chunk in ipairs(virtText) do
+                    local chunkText = chunk[1]
+                    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                    if targetWidth > curWidth + chunkWidth then
+                        table.insert(newVirtText, chunk)
+                    else
+                        chunkText = truncate(chunkText, targetWidth - curWidth)
+                        local hlGroup = chunk[2]
+                        table.insert(newVirtText, { chunkText, hlGroup })
+                        chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                        -- str width returned from truncate() may less than 2nd argument, need padding
+                        if curWidth + chunkWidth < targetWidth then
+                            suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+                        end
+                        break
+                    end
+                    curWidth = curWidth + chunkWidth
+                end
+                table.insert(newVirtText, { suffix, 'MoreMsg' })
+                return newVirtText
+            end
+
+            -- global handler
+            -- `handler` is the 2nd parameter of `setFoldVirtTextHandler`,
+            -- check out `./lua/ufo.lua` and search `setFoldVirtTextHandler` for detail.
+            require('ufo').setup({
+                fold_virt_text_handler = handler
+            })
+        end
+    }
 }

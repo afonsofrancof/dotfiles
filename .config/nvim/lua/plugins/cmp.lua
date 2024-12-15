@@ -24,6 +24,28 @@ return {
             vim.opt.pumheight = 15
 
             local lspkind = require("lspkind")
+            -- `/` cmdline setup.
+            cmp.setup.cmdline("/", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = "buffer" },
+                },
+            })
+
+            -- `:` cmdline setup.
+            cmp.setup.cmdline(":", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = "path" },
+                }, {
+                    {
+                        name = "cmdline",
+                        option = {
+                            ignore_cmds = { "Man", "!" },
+                        },
+                    },
+                }),
+            })
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -69,21 +91,6 @@ return {
                             show_labelDetails = false
                         })(entry, vim_item)
                         formatted_entry.kind = (formatted_entry.kind or "") .. " "
-                        -- local item = entry:get_completion_item()
-                        -- if item.detail then
-                        --     local detail = item.detail
-                        --     if string.find(detail, "->") ~= nil then
-                        --         local return_arrow = vim.split(detail, "->", { trimempty = true })
-                        --         detail = vim.trim(return_arrow[2] or "")
-                        --     end
-                        --     if string.len(detail) <= 10 then
-                        --         print("<=10 " .. detail)
-                        --         formatted_entry.menu = detail
-                        --     else
-                        --         print(">10 " .. detail)
-                        --         formatted_entry.menu = nil
-                        --     end
-                        -- end
                         return formatted_entry
                     end
                 },
