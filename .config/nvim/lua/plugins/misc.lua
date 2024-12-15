@@ -21,9 +21,30 @@ return {
         },
     },
     {
-        'eandrju/cellular-automaton.nvim',
-        config = function()
-            vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
-        end
-    }
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            bigfile = { enabled = true },
+            notifier = { enabled = true },
+            notify = { enabled = true },
+            quickfile = { enabled = true },
+            statuscolumn = { enabled = true },
+            dashboard = { enabled = true },
+            input = { enabled = true },
+            lazygit = {
+                enabled = true,
+                vim.keymap.set('n', '<leader>lg', function()
+                    Snacks.lazygit.open()
+                end)
+            },
+            words = {
+                enabled = true,
+                debounce = 10,
+                vim.keymap.set('n', '<leader>gn', function()
+                    Snacks.words.jump(1, true)
+                end)
+            },
+        },
+    },
 }

@@ -3,8 +3,8 @@ vim.g.mapleader = " "
 --termguicolors
 vim.opt.termguicolors = true
 --Relative line numbers
-vim.wo.number=true
-vim.wo.relativenumber= true
+vim.wo.number = true
+vim.wo.relativenumber = true
 --Remove search highlight
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
