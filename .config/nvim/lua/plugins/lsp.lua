@@ -32,17 +32,6 @@ return {
         }
     },
     {
-        "ThePrimeagen/refactoring.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        lazy = false,
-        config = function()
-            require("refactoring").setup({})
-        end,
-    },
-    {
         "williamboman/mason.nvim",
         event = "VeryLazy",
         opts = {}
@@ -50,13 +39,13 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            'saghen/blink.cmp'
+            "saghen/blink.cmp",
+            "ibhagwan/fzf-lua",
+            "stevearc/conform.nvim",
         },
         event = { "BufReadPost", "BufNewFile" },
         config = function()
             local lspconfig = require("lspconfig")
-
-
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -68,16 +57,10 @@ return {
                     local fzflua = require("fzf-lua")
                     local conform = require("conform")
 
-                    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-                    if client ~= nil then
-                        client.server_capabilities.semanticTokensProvider = nil
-                    end
-
                     local rename_func = function()
                         return ":IncRename " .. vim.fn.expand("<cword>")
                     end
 
-                    -- Mappings.
                     local bufopts = { noremap = true, silent = true, buffer = ev.buf }
                     local bufopts_expr = { expr = true }
                     vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
@@ -124,27 +107,13 @@ return {
                 capabilities = capabilities,
                 settings = {
                     Lua = {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                            version = "LuaJIT",
-                        },
-                        diagnostics = {
-                            -- Get the language server to recognize the `vim` global
-                            globals = { "vim" },
-                        },
-                        workspace = {
-                            -- Make the server aware of Neovim runtime files
-                            library = vim.api.nvim_get_runtime_file("", true),
-                        },
-                        hint = { enable = true }
+                        hint = { enable = true },
                     },
                 },
             })
             lspconfig["ltex"].setup({
                 capabilities = capabilities,
-                --Local on attach
                 on_attach = function(_, _)
-                    -- rest of your on_attach process.
                     require("ltex_extra").setup()
                 end,
                 settings = {
@@ -156,23 +125,6 @@ return {
                     },
                 },
             })
-            lspconfig["basedpyright"].setup({
-                capabilities = capabilities,
-                settings = {
-                    verboseOutput = true,
-                    autoImportCompletion = true,
-                    basedpyright = {
-                        analysis = {
-                            typeCheckingMode = "all",
-                            autoSearchPaths = true,
-                            useLibraryCodeForTypes = true,
-                            diagnosticMode = "openFilesOnly",
-                            indexing = true,
-                        },
-                    },
-                },
-            })
-
             lspconfig["hls"].setup({
                 capabilities = capabilities,
                 filetypes = { 'haskell', 'lhaskell', 'cabal' },
@@ -248,8 +200,6 @@ return {
             end
             vim.g.vimtex_compiler_method = 'latexmk'
             vim.g.vimtex_view_automatic = 0
-            -- vim.g.vimtex_compiler_generic = { command =
-            -- 'ls *.tex | entr -n -c tectonic /_ --synctex --keep-intermediates --reruns 0' }
         end,
     },
     {

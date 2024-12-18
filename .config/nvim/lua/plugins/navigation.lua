@@ -41,41 +41,6 @@ return {
 
         end
     },
-    -- {
-    --     'echasnovski/mini.files',
-    --     version = false,
-    --     opts = {
-    --         mappings = {
-    --             close       = 'q',
-    --             go_in       = '',
-    --             go_in_plus  = 'l',
-    --             go_out      = '<CR>',
-    --             go_out_plus = 'h',
-    --             reset       = '<BS>',
-    --             show_help   = 'g?',
-    --             synchronize = 's',
-    --         },
-    --         options = {
-    --             permanent_delete = false
-    --         }
-    --     },
-    --     keys = {
-    --         {
-    --             "<leader>o",
-    --             function()
-    --                 require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-    --             end,
-    --             desc = "Open mini.files (Directory of the current file)"
-    --         },
-    --         {
-    --             "<leader>O",
-    --             function()
-    --                 require("mini.files").open(vim.uv.cwd(), true)
-    --             end,
-    --             desc = "Open mini.files (cwd)"
-    --         }
-    --     }
-    -- },
     {
         'mrjones2014/smart-splits.nvim',
         config = function()

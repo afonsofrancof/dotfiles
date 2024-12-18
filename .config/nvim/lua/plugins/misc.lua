@@ -1,12 +1,5 @@
 return {
     {
-        "iamcco/markdown-preview.nvim",
-        event = "VeryLazy",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function() vim.fn["mkdp#util#install"]() end,
-    },
-    {
         "folke/todo-comments.nvim",
         event = "VeryLazy",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -47,4 +40,12 @@ return {
             },
         },
     },
+    {
+        "FabijanZulj/blame.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("blame").setup()
+        end
+    },
+    "tpope/vim-fugitive"
 }
