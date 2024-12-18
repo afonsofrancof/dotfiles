@@ -1,152 +1,59 @@
 return {
     {
-        "yioneko/nvim-cmp",
-        branch = "perf",
-        event = "VeryLazy",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",                -- lsp
-            "hrsh7th/cmp-nvim-lua",                -- Nvim API completions
-            "hrsh7th/cmp-nvim-lsp-signature-help", -- Show function signatures
-            "hrsh7th/cmp-buffer",                  --buffer completions
-            "hrsh7th/cmp-path",                    --path completions
-            "hrsh7th/cmp-cmdline",                 --cmdline completions
-            "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets",
-            "saadparwaiz1/cmp_luasnip",
-            "onsails/lspkind.nvim", --lspkind icons
-        },
-        config = function()
-            local cmp = require("cmp")
-
-            local luasnip = require("luasnip")
-            require("luasnip/loaders/from_vscode").lazy_load()
-
-            vim.opt.pumheight = 15
-
-            local lspkind = require("lspkind")
-            -- `/` cmdline setup.
-            cmp.setup.cmdline("/", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
+        'saghen/blink.cmp',
+        lazy = false,
+        dependencies = 'rafamadriz/friendly-snippets',
+        build = 'cargo build --release',
+        opts = {
+            keymap = {
+                preset = 'default',
+                ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+                ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+            },
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = 'mono'
+            },
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+                providers = {
+                    lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", fallbacks = { "lsp" } },
                 },
-            })
-
-            -- `:` cmdline setup.
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    {
-                        name = "cmdline",
-                        option = {
-                            ignore_cmds = { "Man", "!" },
-                        },
-                    },
-                }),
-            })
-            cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end,
-                },
-                performance = {
-                    debounce = 0,
-                    throttle = 0,
-                },
-                mapping = {
-                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-y>"] = cmp.mapping(
-                        cmp.mapping.confirm({
-                            behavior = cmp.ConfirmBehavior.Insert,
-                            select = true,
-                        }),
-                        { "i", "c" }
-                    ),
-                    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-                    ["<C-l>"] = cmp.mapping(function()
-                        if luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        end
-                    end),
-                    ["<C-h>"] = cmp.mapping(function()
-                        if luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
-                        end
-                    end),
-                },
-                formatting = {
-                    fields = { "kind", "abbr" },
-                    format = function(entry, vim_item)
-                        local formatted_entry = lspkind.cmp_format({
-                            mode = "symbol",
-                            maxwidth = {
-                                menu = 0
-                            },
-                            show_labelDetails = false
-                        })(entry, vim_item)
-                        formatted_entry.kind = (formatted_entry.kind or "") .. " "
-                        return formatted_entry
-                    end
-                },
-                preselect = cmp.PreselectMode.None,
-                sorting = {
-                    priority_weight = 2,
-                    comparators = {
-                        cmp.config.compare.offset,
-                        cmp.config.compare.exact,
-                        cmp.config.compare.score,
-
-                        --Make entries that start with underline appear after
-                        function(entry1, entry2)
-                            local _, entry1_under = entry1.completion_item.label:find("^_+")
-                            local _, entry2_under = entry2.completion_item.label:find("^_+")
-                            entry1_under = entry1_under or 0
-                            entry2_under = entry2_under or 0
-                            if entry1_under > entry2_under then
-                                return false
-                            elseif entry1_under < entry2_under then
-                                return true
-                            end
-                        end,
-
-                        cmp.config.compare.kind,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
-                },
-                sources = cmp.config.sources({
-                    { name = "nvim_lua" },
-                    { name = "nvim_lsp" },
-                    --{ name = "luasnip" },
-                    { name = "path" },
-                }, {
-                    { name = "buffer", keyword_length = 5 },
-                }),
+            },
+            signature = {
+                enabled = true,
                 window = {
-                    completion = {
-                        border = "rounded",
-                        winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
-                    },
-                    documentation = {
-                        border = "rounded",
-                        winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
-                    },
+                    max_width = 160,
+                    max_height = 30,
+                    scrollbar = true,
+                }
+            },
+            completion = {
+                accept = {
+                    auto_brackets = {
+                        enabled = true
+                    }
                 },
-                experimental = {
-                    native_menu = false,
-                    ghost_text = false,
+                menu = {
+                    border = "single",
+                    winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+                    winblend = 0,
+                    draw = {
+                        treesitter = { 'lsp' },
+                        columns = { { 'kind_icon'}, { 'label' } },
+                    }
                 },
-            })
-
-            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end
-    }
+                documentation = {
+                    auto_show = true,
+                    window = {
+                        border = 'single',
+                        max_width = 160,
+                        max_height = 30,
+                        winblend = 0,
+                        winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+                    }
+                },
+            },
+        },
+    },
 }

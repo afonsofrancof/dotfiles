@@ -10,13 +10,12 @@ return {
     },
     {
         'nvim-java/nvim-java',
-        priority = 500,
+        ft = "java",
         config = function()
             require('java').setup()
             local lspconfig = require("lspconfig")
             local lsp_defaults = lspconfig.util.default_config
-            local capabilities =
-                vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+            local capabilities = require('blink.cmp').get_lsp_capabilities(lsp_defaults.capabilities)
             capabilities.textDocument.foldingRange = {
                 dynamicRegistration = false,
                 lineFoldingOnly = true
@@ -50,6 +49,9 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        dependencies = {
+            'saghen/blink.cmp'
+        },
         event = { "BufReadPost", "BufNewFile" },
         config = function()
             local lspconfig = require("lspconfig")
@@ -94,10 +96,8 @@ return {
                     vim.keymap.set("n", "<space>fo", function() conform.format({ lsp_fallback = true }) end, bufopts)
                 end,
             })
-
             local lsp_defaults = lspconfig.util.default_config
-            local capabilities =
-                vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+            local capabilities = require('blink.cmp').get_lsp_capabilities(lsp_defaults.capabilities)
             capabilities.textDocument.foldingRange = {
                 dynamicRegistration = false,
                 lineFoldingOnly = true
