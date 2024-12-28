@@ -1,33 +1,56 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 1 ]]; then
-    selected=$1
+    selected_path=$1
 else
-    uni_projects=$(find ~/projects/University -mindepth 3 -maxdepth 3 -type d)
-    personal_projects=$(find ~/projects/Personal -mindepth 1 -maxdepth 1 -type d)
-    work_projects=$(find ~/projects/Work -mindepth 1 -maxdepth 1 -type d)
-    vaults=$(find ~/vaults -mindepth 2 -maxdepth 2 -type d)
-    gits=$(find ~/gits -mindepth 1 -maxdepth 1 -type d)
-    dotfiles=$(find ~/.config -mindepth 1 -maxdepth 1 -type d)
-    #Merge the two lists
-    selected=$(echo -e "$uni_projects\n$personal_projects\n$work_projects\n$dotfiles\n$gits\n$vaults" | fzf)
+    # Define commands dynamically with display names
+
+    declare -A commands=(
+        ["University"]="fd . ~/projects/University --exact-depth 3 --type d 2> /dev/null"
+        ["Personal"]="fd . ~/projects/Personal --exact-depth 1 --type d 2> /dev/null"
+        ["Work"]="fd . ~/projects/Work --exact-depth 1 --type d 2> /dev/null"
+        ["Vaults"]="fd . ~/vaults --exact-depth 2 --type d 2> /dev/null"
+        ["Git Repositories"]="fd . ~/gits --exact-depth 1 --type d 2> /dev/null"
+        ["Dotfiles"]="fd . ~/.config --exact-depth 1 --type d 2> /dev/null"
+    )
+
+    
+    # Initialize combined list
+    combined_list=""
+
+    for display_name in "${!commands[@]}"; do
+        command="${commands[$display_name]}"
+        result=$(eval $command | while read -r path; do
+            last_segment=$(basename "$path")
+            echo -e "$display_name > $last_segment\t$path"
+        done)
+        [[ -n "$result" ]] && combined_list+="$result\n"
+    done
+
+    selected=$(echo -e "$combined_list" | fzf --with-nth=1 --delimiter='\t' --prompt="Select a project: " \
+        --preview "eza --tree --level=2 --icons --color=always {2}" \
+        --preview-window=right:50%:wrap)
+
+    selected_path=$(echo "$selected" | awk -F'\t' '{print $2}')
 fi
 
-if [[ -z $selected ]]; then
+# Exit if no selection was made
+if [[ -z $selected_path ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+# Prepare tmux session name
+selected_name=$(basename "$selected_path" | tr . _)
 selected_name=${selected_name^^}
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
+    tmux new-session -s $selected_name -c "$selected_path"
     exit 0
 fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
+    tmux new-session -ds $selected_name -c "$selected_path"
 fi
 
 tmux switch-client -t $selected_name
