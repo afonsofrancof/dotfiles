@@ -3,7 +3,7 @@ return {
         'saghen/blink.cmp',
         lazy = false,
         dependencies = 'rafamadriz/friendly-snippets',
-        build = 'cargo build --release',
+        version = "*",
         opts = {
             keymap = {
                 preset = 'default',

@@ -84,13 +84,17 @@ return {
                 table.insert(newVirtText, { suffix, 'MoreMsg' })
                 return newVirtText
             end
-
-            -- global handler
-            -- `handler` is the 2nd parameter of `setFoldVirtTextHandler`,
-            -- check out `./lua/ufo.lua` and search `setFoldVirtTextHandler` for detail.
             require('ufo').setup({
                 fold_virt_text_handler = handler
             })
         end
+    },
+    {
+        "OXY2DEV/markview.nvim",
+        ft = "markdown",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        }
     }
 }
