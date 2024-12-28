@@ -81,14 +81,16 @@ case $1 in
         tmux_bar_focused_fg="#1d2021"
 
 
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.g.gruvbox_material_better_performance = 1<CR>' || true
-        echo "vim.g.gruvbox_material_better_performance = 1" > ~/.config/nvim/lua/core/theme.lua
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.g.gruvbox_material_background = "hard"<CR>' || true
-        echo "vim.g.gruvbox_material_background = 'hard'" >> ~/.config/nvim/lua/core/theme.lua
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.g.gruvbox_material_foreground = "original"<CR>' || true
-        echo "vim.g.gruvbox_material_foreground = 'original'" >> ~/.config/nvim/lua/core/theme.lua
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.opt.background = "dark"<CR>' || true
-        echo "vim.opt.background = 'dark'" >> ~/.config/nvim/lua/core/theme.lua
+        for addr in $XDG_RUNTIME_DIR/nvim.*; do
+            nvim --server $addr --remote-send ':lua vim.g.gruvbox_material_better_performance = 1<CR>' || true
+            echo "vim.g.gruvbox_material_better_performance = 1" > ~/.config/nvim/lua/core/theme.lua
+            nvim --server $addr --remote-send ':lua vim.g.gruvbox_material_background = "hard"<CR>' || true
+            echo "vim.g.gruvbox_material_background = 'hard'" >> ~/.config/nvim/lua/core/theme.lua
+            nvim --server $addr --remote-send ':lua vim.g.gruvbox_material_foreground = "original"<CR>' || true
+            echo "vim.g.gruvbox_material_foreground = 'original'" >> ~/.config/nvim/lua/core/theme.lua
+            nvim --server $addr --remote-send ':lua vim.opt.background = "dark"<CR>' || true
+            echo "vim.opt.background = 'dark'" >> ~/.config/nvim/lua/core/theme.lua
+        done
 
         #Change kitty theme
         kitten themes --reload-in=all Gruvbox Dark
@@ -106,14 +108,16 @@ case $1 in
         tmux_bar_focused_fg="#f2e5bc"
 
 
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.g.gruvbox_material_better_performance = 1<CR>' || true
-        echo "vim.g.gruvbox_material_better_performance = 1" > ~/.config/nvim/lua/core/theme.lua
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.g.gruvbox_material_background = "soft"<CR>' || true
-        echo "vim.g.gruvbox_material_background = 'soft'" >> ~/.config/nvim/lua/core/theme.lua
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.g.gruvbox_material_foreground = "original"<CR>' || true
-        echo "vim.g.gruvbox_material_foreground = 'original'" >> ~/.config/nvim/lua/core/theme.lua
-        nvim --server /tmp/nvim.pipe --remote-send ':lua vim.opt.background = "light"<CR>' || true
-        echo "vim.opt.background = 'light'" >> ~/.config/nvim/lua/core/theme.lua
+        for addr in $XDG_RUNTIME_DIR/nvim.*; do
+            nvim --server $addr --remote-send ':lua vim.g.gruvbox_material_better_performance = 1<CR>' || true
+            echo "vim.g.gruvbox_material_better_performance = 1" > ~/.config/nvim/lua/core/theme.lua
+            nvim --server $addr --remote-send ':lua vim.g.gruvbox_material_background = "soft"<CR>' || true
+            echo "vim.g.gruvbox_material_background = 'soft'" >> ~/.config/nvim/lua/core/theme.lua
+            nvim --server $addr --remote-send ':lua vim.g.gruvbox_material_foreground = "original"<CR>' || true
+            echo "vim.g.gruvbox_material_foreground = 'original'" >> ~/.config/nvim/lua/core/theme.lua
+            nvim --server $addr --remote-send ':lua vim.opt.background = "light"<CR>' || true
+            echo "vim.opt.background = 'light'" >> ~/.config/nvim/lua/core/theme.lua
+        done
 
         #Change kitty theme
         kitten themes --reload-in=all Gruvbox Light
