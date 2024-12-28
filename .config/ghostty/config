@@ -1,9 +1,18 @@
-# Font
-font-family = JetBrainsMono Nerd Font Mono
-font-size = 16
-
 # Theme
 theme = GruvboxDarkHard
 background = 1d2021
-window-theme = ghostty
-window-decoration = false
+
+# Font
+font-family = JetBrainsMono Nerd Font Mono
+font-style = Medium
+font-size = 16
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+window-padding-color = background
+macos-titlebar-style = hidden
+
+term = "xterm-256color"
+
+auto-update = download
