@@ -47,5 +47,12 @@ return {
             require("blame").setup()
         end
     },
-    "tpope/vim-fugitive"
+    "tpope/vim-fugitive",
+    -- {
+    --     "nvzone/typr",
+    --     dependencies = {
+    --         "nvzone/volt"
+    --     },
+    --     opts = {}
+    -- }
 }

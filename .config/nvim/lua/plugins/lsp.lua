@@ -181,7 +181,8 @@ return {
                     markdown = { "mdformat" },
                     rust = { "rustfmt" },
                     go = { "gofmt" },
-                    json = { "jq" }
+                    json = { "jq" },
+                    bash = { "shfmt" }
                 }
             })
         end,
