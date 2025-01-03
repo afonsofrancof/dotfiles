@@ -9,8 +9,9 @@ vim.wo.relativenumber = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.smartindent = true
+-- Make searches case insensitive (except when using uppercase)
+vim.opt.smartcase = true
 --Change word definition
-vim.opt.iskeyword:append("-")
 vim.opt.iskeyword:append("_")
 --Remove Wrap
 vim.opt.wrap = false
