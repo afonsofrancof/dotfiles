@@ -24,7 +24,7 @@ vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<space>x", ":.lua<CR>")
 vim.keymap.set("v", "<space>x", ":lua<CR>")
 --Merge lines in visual mode
-vim.keymap.set("v", "J", function()
+vim.keymap.set("v", "<A-J>", function()
     for _ = 1, vim.fn.getpos("'>")[2] - vim.fn.getpos("'<")[2] - 1 do
         vim.api.nvim_command("normal! J")
     end
