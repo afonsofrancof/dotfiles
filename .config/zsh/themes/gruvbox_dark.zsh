@@ -75,8 +75,6 @@ ZSH_HIGHLIGHT_STYLES[cursor]='fg=#83a598'
 #ZSH Syntax Highlighting
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#928374,italic,underline"
 
-
-
 #Pure prompt
 # Define gruvbox dark colors
 pure_prompt_colors() {
@@ -101,11 +99,6 @@ pure_prompt_colors() {
     )
     (( $#colors )) || echo $colors
 }
-
-# Apply gruvbox dark colors to Zsh Pure prompt
-for color in $(pure_prompt_colors); do
-    zstyle ":prompt:pure:$color" color "$color"
-done
 
 # FZF
 # # Scheme name: Gruvbox dark, hard
