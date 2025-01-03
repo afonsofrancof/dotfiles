@@ -1,6 +1,5 @@
 # Theme
-theme = GruvboxDarkHard
-background = 1d2021
+theme = gruvbox-material-medium-dark
 
 # Font
 font-family = JetBrainsMono Nerd Font Mono
