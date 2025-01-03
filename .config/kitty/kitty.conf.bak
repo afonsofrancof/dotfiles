@@ -1,5 +1,5 @@
 # Font handling
-font_family JetBrainsMono Nerd Font Mono Light
+font_family JetBrainsMono Nerd Font Mono Regular
 font_size 16.0
 
 #Remove annoying things
@@ -16,6 +16,6 @@ macos_option_as_alt yes
 hide_window_decorations yes
 
 # BEGIN_KITTY_THEME
-# Gruvbox Light
+# Gruvbox Material Dark Soft
 include current-theme.conf
 # END_KITTY_THEME
