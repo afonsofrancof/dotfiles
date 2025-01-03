@@ -22,10 +22,7 @@ export READER=mupdf
 source $ZDOTDIR/themes/gruvbox_dark.zsh
 
 #Prompt
-fpath+=$ZDOTDIR/prompts/pure
-autoload -U promptinit; promptinit
-export PURE_GIT_PULL=0
-prompt pure
+source $ZDOTDIR/prompts/simple-two-line.zsh
 
 source $ZDOTDIR/functions.zsh
 source $ZDOTDIR/plugins.zsh
