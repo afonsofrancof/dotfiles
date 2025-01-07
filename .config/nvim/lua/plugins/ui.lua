@@ -10,12 +10,6 @@ return {
         end
     },
     {
-        'kevinhwang91/nvim-bqf',
-        event = "VeryLazy",
-        ft = 'qf'
-    },
-
-    {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
@@ -39,13 +33,6 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim",
         }
-    },
-    {
-        "folke/zen-mode.nvim",
-        event = "VeryLazy",
-        opts = {
-            vim.keymap.set("n", "<leader>z", "<Cmd> ZenMode <CR>", { noremap = true, silent = true }),
-        },
     },
     {
         'kevinhwang91/nvim-ufo',
@@ -102,5 +89,5 @@ return {
         config = function()
             require 'colorizer'.setup()
         end
-    }
+    },
 }

@@ -8,5 +8,7 @@ return {
         "EdenEast/nightfox.nvim",
         event = "VeryLazy",
         priority = 1000
-    }
+    },
+    { "blazkowolf/gruber-darker.nvim" },
+    { "sainnhe/everforest" }
 }
