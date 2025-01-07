@@ -129,6 +129,9 @@ return {
                 capabilities = capabilities,
                 filetypes = { 'haskell', 'lhaskell', 'cabal' },
             })
+            lspconfig["clangd"].setup({
+                capabilities = capabilities,
+            })
         end,
     },
     {
