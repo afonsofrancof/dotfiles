@@ -5,3 +5,4 @@
 **/.session.vim
 .ssh/known_hosts
 .ssh/known_hosts.old
+.config/nvim/lazy-lock.json
