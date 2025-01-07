@@ -47,7 +47,7 @@ function M.render()
     local normal_fg_color = vim.api.nvim_get_hl_by_name('Normal', true).foreground
 
     -- Convert the RGB color to a hex string
-    local bg_hex_color = string.format('#%06x', normal_bg_color)
+    local bg_hex_color = normal_bg_color and string.format('#%06x', normal_bg_color) or 'transparent'
     -- Convert the RGB color to a hex string
     local fg_hex_color = string.format('#%06x', normal_fg_color)
 
