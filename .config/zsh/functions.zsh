@@ -10,16 +10,6 @@ function vim {
     fi
 }
 
-function sourceall(){
-    set -e
-    pids=$(pgrep zsh)
-    while IFS= read -r pid; do
-        kill -USR1 "$pid"
-    done <<< "$pids"
-    set +e
-}
-
-
 function routevpn {
         sudo route -n add $@ 10.8.0.1
 }
