@@ -5,9 +5,9 @@ fpath+=$ZDOTDIR/plugins/zsh-completions/src
 autoload -U compinit && compinit
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
-source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
-
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+
+source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
 
 zvm_after_init_commands+=('source <(fzf --zsh) && enable-fzf-tab')
 source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
