@@ -14,12 +14,7 @@ return {
         config = function()
             require('java').setup()
             local lspconfig = require("lspconfig")
-            local lsp_defaults = lspconfig.util.default_config
-            local capabilities = require('blink.cmp').get_lsp_capabilities(lsp_defaults.capabilities)
-            capabilities.textDocument.foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true
-            }
+            local capabilities = require('blink.cmp').get_lsp_capabilities(nil, true)
             lspconfig["jdtls"].setup({
                 capabilities = capabilities,
             })
@@ -79,12 +74,7 @@ return {
                     vim.keymap.set("n", "<space>fo", function() conform.format({ lsp_fallback = true }) end, bufopts)
                 end,
             })
-            local lsp_defaults = lspconfig.util.default_config
-            local capabilities = require('blink.cmp').get_lsp_capabilities(lsp_defaults.capabilities)
-            capabilities.textDocument.foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true
-            }
+            local capabilities = require('blink.cmp').get_lsp_capabilities(nil, true)
             lspconfig["gopls"].setup({
                 capabilities = capabilities,
                 settings = {
@@ -157,17 +147,6 @@ return {
                 dapui.close()
             end
         end
-    },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        event = "VeryLazy",
-        dependencies = {
-            "williamboman/mason.nvim",
-            "mfussenegger/nvim-dap",
-        },
-        opts = {
-            handlers = {}
-        },
     },
     {
         "mfussenegger/nvim-dap",
