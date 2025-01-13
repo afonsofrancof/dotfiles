@@ -26,13 +26,11 @@ return {
             dashboard = { enabled = true },
             input = { enabled = true },
             lazygit = {
-                enabled = true,
                 vim.keymap.set('n', '<leader>lg', function()
                     Snacks.lazygit.open()
                 end)
             },
             words = {
-                enabled = true,
                 debounce = 10,
                 vim.keymap.set('n', '<leader>gn', function()
                     Snacks.words.jump(1, true)
@@ -48,11 +46,4 @@ return {
         end
     },
     "tpope/vim-fugitive",
-    -- {
-    --     "nvzone/typr",
-    --     dependencies = {
-    --         "nvzone/volt"
-    --     },
-    --     opts = {}
-    -- }
 }

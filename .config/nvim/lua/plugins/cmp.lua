@@ -2,7 +2,9 @@ return {
     {
         'saghen/blink.cmp',
         lazy = false,
-        dependencies = 'rafamadriz/friendly-snippets',
+        dependencies = {
+            'rafamadriz/friendly-snippets',
+        },
         version = "*",
         opts = {
             keymap = {
@@ -26,6 +28,7 @@ return {
                     max_width = 160,
                     max_height = 30,
                     scrollbar = true,
+                    show_documentation = false,
                 }
             },
             completion = {
@@ -40,7 +43,7 @@ return {
                     winblend = 0,
                     draw = {
                         treesitter = { 'lsp' },
-                        columns = { { 'kind_icon'}, { 'label' } },
+                        columns = { { 'kind_icon' }, { 'label' } },
                     }
                 },
                 documentation = {
