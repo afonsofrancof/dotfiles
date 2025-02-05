@@ -46,9 +46,6 @@ return {
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
                 callback = function(ev)
-                    -- Enable completion triggered by <c-x><c-o>
-                    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
                     local fzflua = require("fzf-lua")
                     local conform = require("conform")
 
@@ -109,9 +106,10 @@ return {
                 settings = {
                     ltex = {
                         language = "en-GB",
-                    },
-                    additionalRules = {
-                        enablePickyRules = true,
+                        additionalRules = {
+                            enablePickyRules = true,
+                            languageModel = '~/Downloads/ngrams/',
+                        },
                     },
                 },
             })
@@ -120,6 +118,9 @@ return {
                 filetypes = { 'haskell', 'lhaskell', 'cabal' },
             })
             lspconfig["clangd"].setup({
+                capabilities = capabilities,
+            })
+            lspconfig["texlab"].setup({
                 capabilities = capabilities,
             })
         end,
@@ -175,14 +176,22 @@ return {
         filetypes = { "tex" },
         config = function()
             if vim.loop.os_uname().sysname == "Darwin" then
-                vim.g.vimtex_view_method = 'skim'
-                vim.g.vimtex_view_skim_sync = 1
-                vim.g.vimtex_view_skim_activate = 1
+                vim.g.vimtex_view_method = 'sioyek'
             else
                 vim.g.vimtex_view_method = 'zathura'
             end
             vim.g.vimtex_compiler_method = 'latexmk'
-            vim.g.vimtex_view_automatic = 0
+            vim.g.vimtex_compiler_latexmk = {
+                out_dir = 'build',
+                options = {
+                    "-verbose",
+                    "-shell-escape",
+                    "-file-line-error",
+                    "-synctex=1",
+                    "-interaction=nonstopmode",
+                }
+            }
+            vim.g.vimtex_view_automatic = 1
         end,
     },
     {
