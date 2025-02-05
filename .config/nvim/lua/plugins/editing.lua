@@ -1,54 +1,37 @@
 return {
     {
-        "tpope/vim-surround",
-        event = "VeryLazy",
-    },
-    {
         "mbbill/undotree",
         event = "VeryLazy",
     },
     {
-        "windwp/nvim-autopairs",
-        event = "VeryLazy",
-        config = function()
-            local npairs = require('nvim-autopairs')
-
-            npairs.setup({
-                map_cr = true,
-                map_bs = true,
-                check_ts = true,
-                enable_check_bracket_line = true,
-                ignored_next_char = "[%w]"
-            })
-        end,
+        'echasnovski/mini.surround',
+        version = '*',
+        opts = {}
     },
     {
-        "epwalsh/obsidian.nvim",
-        version = "v3.9.0",
-        lazy = true,
-        ft = "markdown",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        opts = {
-            workspaces = {
-                {
-                    name = "tese",
-                    path = "~/vaults/uni/tese/",
+        'echasnovski/mini.pairs',
+        version = '*',
+        config = function()
+            vim.api.nvim_set_keymap('n', 'S', 'saiw', { silent = true })
+            require("mini.pairs").setup({
+                mappings = {
+                    -- Prevents the action if the cursor is just before any character or next to a "\".
+                    ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\][%s%)%]%}]" },
+                    ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\][%s%)%]%}]" },
+                    ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\][%s%)%]%}]" },
+                    -- This is default (prevents the action if the cursor is just next to a "\").
+                    [")"] = { action = "close", pair = "()", neigh_pattern = "[^\\]." },
+                    ["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
+                    ["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
+                    -- Prevents the action if the cursor is just before or next to any character.
+                    ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "[^%w][^%w]", register = { cr = false } },
+                    ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^%w][^%w]", register = { cr = false } },
+                    ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^%w][^%w]", register = { cr = false } },
                 },
-                {
-                    name = "chronolens",
-                    path = "~/vaults/uni/chronolens/",
-                },
-            },
-            completion = {
-                nvim_cmp = false,
-                min_chars = 2,
-            },
-            picker = {
-                name = "fzf-lua",
-            },
-
-        },
+            })
+        end
     },
+
+    --  Adds S in regex replace and change camelCase to snake_case, etc
+    "tpope/vim-abolish"
 }

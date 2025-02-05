@@ -46,4 +46,5 @@ return {
         end
     },
     "tpope/vim-fugitive",
+    "pimalaya/himalaya-vim"
 }
