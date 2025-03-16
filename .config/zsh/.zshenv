@@ -1,3 +1,35 @@
+function remove_from_path() {
+    local a
+    local p
+    local s
+    local r
+    eval "p=\$$1"
+    a=( ${(s/:/)p} )
+    if [[ ${a[(i)${2}]} -gt ${#a} ]] && return
+    for s in $a; do
+        if [[ ! $s == $2 ]]; then
+            [[ -z "$r" ]] && r=$s || r="$r:$s"
+        fi
+    done
+    eval $1="$r"
+}
+
+function prepend_path() {
+    [[ ! -d "$2" ]] && return
+    local p
+    remove_from_path "$1" "$2"
+    eval "p=\$$1"
+    eval export $1="$2:$p"
+}
+
+function append_path() {
+    [[ ! -d "$2" ]] && return
+    local p
+    remove_from_path "$1" "$2"
+    eval "p=\$$1"
+    eval export $1="$p:$2"
+}
+
 export EDITOR=nvim
 export VISUAL=nvim
 export READER=mupdf
@@ -15,19 +47,22 @@ export GOBIN="$GOPATH/bin"
 if [[ $(uname) == "Darwin" ]]; then
     export JAVA_HOME=$(/usr/libexec/java_home)
     export GEM_HOME=$HOME/.gem
-    export PATH="/opt/homebrew/bin:$PATH"
-    export PATH="/opt/homebrew/opt/texlive/bin:$PATH"
-    export PATH=$PATH:$GEM_HOME/bin
+    prepend_path PATH "/opt/homebrew/bin"
+    prepend_path PATH "/opt/homebrew/opt/texlive/bin"
+    append_path  PATH  $GEM_HOME/bin
 fi
 
-
 #BOTH
-export PATH="/usr/sbin:/sbin:$PATH"
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.ghcup/bin:$PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
+append_path PATH "/usr/sbin:/sbin"
+append_path PATH "$HOME/.local/share/nvim/mason/bin"
+append_path PATH "$HOME/.local/bin"
+append_path PATH "$HOME/go/bin"
+append_path PATH "$HOME/.ghcup/bin"
+append_path PATH "$HOME/.cabal/bin"
+append_path PATH "$HOME/.cargo/bin"
+for bindir in ~/opt/*/bin(N); do
+  if [[ -d "$bindir" ]]; then
+    prepend_path PATH "$bindir"
+  fi
+done
 
-. "$HOME/.cargo/env"
