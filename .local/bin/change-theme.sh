@@ -154,6 +154,7 @@ themes[everforest-hard-dark]=\
  nvim_color_scheme=everforest
  additional_nvim_commands="\
 vim.g.everforest_better_performance=1
+vim.g.everforest_transparent_background=2
 vim.g.everforest_background=\"hard\"
 vim.opt.background=\"dark\""'
  
@@ -166,6 +167,7 @@ themes[everforest-medium-dark]=\
  nvim_color_scheme=everforest
  additional_nvim_commands="\
 vim.g.everforest_better_performance=1
+vim.g.everforest_transparent_background=2
 vim.g.everforest_background=\"medium\"
 vim.opt.background=\"dark\""'
 
@@ -179,6 +181,7 @@ themes[everforest-soft-dark]=\
  additional_nvim_commands="\
 vim.g.everforest_better_performance=1
 vim.g.everforest_background=\"soft\"
+vim.g.everforest_transparent_background=2
 vim.opt.background=\"dark\""'
 
 # Function to reload Neovim
@@ -197,10 +200,10 @@ change_theme() {
     [[ -n "$alacritty_theme_name" ]] && sed -i '' -e "s|import = \[\"~/.config/alacritty/themes/.*\"\]|import = [\"~/.config/alacritty/themes/${alacritty_theme_name}.toml\"]|g" ~/.config/alacritty/alacritty.toml
     [[ -n "$ghostty_theme_name" ]] && sed -i '' -E "s/theme =.*$/theme = $ghostty_theme_name/" ~/.config/ghostty/config
     [[ -n "$kitty_theme" ]] && kitten themes --reload-in=all "$kitty_theme"
-    sed -i '' -E "s/set -g status-bg .*$/set -g status-bg \"$background_color\"/" ~/.config/tmux/tmux_status_bar.conf
-    sed -i '' -E "s/set -g @unfocused-fg .*$/set -g @unfocused-fg \"$tmux_bar_unfocused_fg\"/" ~/.config/tmux/tmux_status_bar.conf
-    sed -i '' -E "s/set -g @focused-bg .*$/set -g @focused-bg \"$tmux_bar_focused_bg\"/" ~/.config/tmux/tmux_status_bar.conf
-    sed -i '' -E "s/set -g @focused-fg .*$/set -g @focused-fg \"$tmux_bar_focused_fg\"/" ~/.config/tmux/tmux_status_bar.conf
+    sed -i '' -E "s/set -g status-bg .*$/set -g status-bg \"$background_color\"/" ~/.config/tmux/tmux.conf
+    sed -i '' -E "s/set -g @unfocused-fg .*$/set -g @unfocused-fg \"$tmux_bar_unfocused_fg\"/" ~/.config/tmux/tmux.conf
+    sed -i '' -E "s/set -g @focused-bg .*$/set -g @focused-bg \"$tmux_bar_focused_bg\"/" ~/.config/tmux/tmux.conf
+    sed -i '' -E "s/set -g @focused-fg .*$/set -g @focused-fg \"$tmux_bar_focused_fg\"/" ~/.config/tmux/tmux.conf
     tmux source-file ~/.config/tmux/tmux.conf
     reload_neovim "$nvim_color_scheme" "$additional_nvim_commands"
 }
