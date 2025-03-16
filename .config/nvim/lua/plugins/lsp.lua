@@ -117,10 +117,19 @@ return {
                 capabilities = capabilities,
                 filetypes = { 'haskell', 'lhaskell', 'cabal' },
             })
-            lspconfig["clangd"].setup({
+            -- lspconfig["clangd"].setup({
+            --     capabilities = capabilities,
+            -- })
+            lspconfig["texlab"].setup({
                 capabilities = capabilities,
             })
-            lspconfig["texlab"].setup({
+            lspconfig["bashls"].setup({
+                capabilities = capabilities,
+            })
+            lspconfig["zls"].setup({
+                capabilities = capabilities,
+            })
+            lspconfig["pyright"].setup({
                 capabilities = capabilities,
             })
         end,
@@ -165,9 +174,33 @@ return {
                     rust = { "rustfmt" },
                     go = { "gofmt" },
                     json = { "jq" },
-                    bash = { "shfmt" }
+                    bash = { "shfmt", "beautysh" },
+                    zsh = { "beautysh" }
                 }
             })
+        end,
+    },
+    {
+        'mfussenegger/nvim-lint',
+        config = function()
+            local lint = require("lint")
+
+            lint.linters_by_ft = {
+                go = { "golangcilint" },
+            }
+
+            local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+                group = lint_augroup,
+                callback = function()
+                    lint.try_lint()
+                end,
+            })
+
+            vim.keymap.set("n", "<leader>li", function()
+                lint.try_lint()
+            end, { desc = "Trigger linting for current file" })
         end,
     },
 
@@ -180,6 +213,15 @@ return {
             else
                 vim.g.vimtex_view_method = 'zathura'
             end
+            vim.g.vimtex_quickfix_ignore_filters = {
+                "warning",
+                "Warning"
+            }
+            vim.g.vimtex_quickfix_open_on_warning = 0
+            vim.g.vimtex_quickfix_ignore_filters = {
+                'Overfull',
+                'Underfull',
+            }
             vim.g.vimtex_compiler_method = 'latexmk'
             vim.g.vimtex_compiler_latexmk = {
                 out_dir = 'build',

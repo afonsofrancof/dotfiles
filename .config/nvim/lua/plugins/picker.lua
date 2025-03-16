@@ -9,7 +9,7 @@ return {
             fzflua.setup({
                 defaults = {
                     winopts = {
-                        border = "single",
+                        border = "rounded",
                         width = 0.6,
                         height = 0.5,
                     },
