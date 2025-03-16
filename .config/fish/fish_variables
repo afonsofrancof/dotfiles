@@ -1,8 +1,14 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR FZF_CTRL_R_OPTS:\x2d\x2dreverse
-SETUVAR FZF_TMUX_OPTS:\x2dp
-SETUVAR __fish_initialized:3400
+SETUVAR FZF_COMPLETE:2
+SETUVAR FZF_DEFAULT_OPTS:\x2d\x2dbind\x20\x27bs\x3abackward\x2ddelete\x2dchar/eof\x27
+SETUVAR __fish_initialized:3800
+SETUVAR _fisher_brewingweasel_2F_fishbang_files:\x7e/\x2econfig/fish/conf\x2ed/fishbang\x2efish
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ebrewingweasel/fishbang
+SETUVAR _fisher_upgraded_to_4_4:\x1d
+SETUVAR fifc_keybinding:\x09
+SETUVAR fifc_open_keybinding:ctrl\x2do
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:blue
@@ -25,10 +31,11 @@ SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrbl
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
+SETUVAR fish_complete_path:vertical\x1e/opt/homebrew/Cellar/fish/3\x2e7\x2e1/share/fish/completions\x1e/opt/homebrew/Cellar/fish/4\x2e0\x2e1/share/fish/completions
 SETUVAR fish_key_bindings:fish_vi_key_bindings
 SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:yellow\x1e\x2di
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/Users/afonso/\x2eghcup/bin\x1e/Users/afonso/\x2ecargo/bin\x1e/Users/afonso/go/bin\x1e/Users/afonso/\x2elocal/bin\x1e/Users/afonso/\x2elocal/share/nvim/mason/bin\x1e/sbin\x1e/usr/sbin\x1e/Users/afonso/\x2egem/bin\x1e/opt/homebrew/opt/texlive/bin\x1e/opt/homebrew/bin
+SETUVAR fish_user_paths:/Users/afonso/opt/fish/bin\x1e/Users/afonso/opt/neovim/bin\x1e/Users/afonso/\x2eghcup/bin\x1e/Users/afonso/\x2ecargo/bin\x1e/Users/afonso/go/bin\x1e/Users/afonso/\x2elocal/bin\x1e/Users/afonso/\x2elocal/share/nvim/mason/bin\x1e/sbin\x1e/usr/sbin\x1e/Users/afonso/\x2egem/bin\x1e/opt/homebrew/opt/texlive/bin\x1e/opt/homebrew/bin
