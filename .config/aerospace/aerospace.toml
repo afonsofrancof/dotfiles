@@ -1,0 +1,60 @@
+# Start AeroSpace at login
+start-at-login = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+default-root-container-layout = 'tiles'
+
+automatically-unhide-macos-hidden-apps = true
+
+[key-mapping]
+preset = 'qwerty'
+
+[mode.main.binding]
+
+cmd-alt-t = 'exec-and-forget open -na Ghostty'
+cmd-alt-b = 'exec-and-forget open -na "Zen"'
+
+cmd-enter = 'move left'
+
+cmd-shift-alt-h = 'focus left'
+cmd-shift-alt-j = 'focus down'
+cmd-shift-alt-k = 'focus up'
+cmd-shift-alt-l = 'focus right'
+
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+
+cmd-shift-1 = 'move-node-to-workspace 1'
+cmd-shift-2 = 'move-node-to-workspace 2'
+cmd-shift-3 = 'move-node-to-workspace 3'
+cmd-shift-4 = 'move-node-to-workspace 4'
+cmd-shift-5 = 'move-node-to-workspace 5'
+
+cmd-shift-semicolon = 'mode service'
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'app.zen-browser.zen'
+if.window-title-regex-substring = 'Bitwarden'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iphonesimulator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'org.chromium.Chromium'
+run = 'layout floating'
+
+[mode.service.binding]
+u = ['reload-config', 'mode main']
+
