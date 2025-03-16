@@ -5,9 +5,7 @@ end
 
 set -g fish_greeting
 fish_vi_key_bindings
-bind -M insert \t complete-and-search
-bind -M insert --key btab complete
-
+bind -M insert \t "__fzf_complete"
 
 # XDG directories
 set -x XDG_CONFIG_HOME "$HOME/.config"
@@ -35,6 +33,7 @@ end
 # Common paths
 fish_add_path /usr/sbin
 fish_add_path /sbin
+fish_add_path $HOME/opt/*/bin
 fish_add_path $HOME/.local/share/nvim/mason/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/go/bin
@@ -46,7 +45,6 @@ if test (uname) = "Darwin"
     eval (/opt/homebrew/bin/brew shellenv)
 end
 
+# Set up fzf
+set -U FZF_DEFAULT_OPTS "--bind 'bs:backward-delete-char/eof'"
 fzf --fish | source
-
-# Added by LM Studio CLI (lms)
-set -gx PATH $PATH /Users/afonso/.lmstudio/bin

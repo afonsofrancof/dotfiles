@@ -1,5 +1,3 @@
-# Credits to https://github.com/BrewingWeasel/fishbang
-
 function last_history_item
   echo $history[1]
 end
@@ -57,7 +55,3 @@ abbr -a !^ --position anywhere --function first_history_arg # !^ returns the fir
 abbr -a !\$ --position anywhere --function last_history_arg # !$ returns the last argument of the last command
 abbr -a !\* --position anywhere --function history_args # !* returns all arguments of the last command
 abbr -a bang_nth_arg --position anywhere --regex '!:([0-9]*)' --function nth_history_arg # !$ returns the last argument of the last command
-
-bind -M insert enter expand-abbr execute
-bind -M default enter expand-abbr execute
-bind enter expand-abbr execute
