@@ -25,16 +25,24 @@ return {
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
                 providers = {
-                    lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", fallbacks = { "lsp" } },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        fallbacks = { "lsp" }
+                    },
                 },
             },
             signature = {
                 enabled = true,
                 window = {
-                    max_width = 160,
-                    max_height = 30,
-                    scrollbar = true,
                     show_documentation = false,
+                }
+            },
+            cmdline = {
+                completion = {
+                    menu = {
+                        auto_show = true
+                    }
                 }
             },
             completion = {

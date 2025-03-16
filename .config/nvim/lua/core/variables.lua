@@ -47,4 +47,3 @@ vim.opt.signcolumn = "yes"
 vim.opt.autoread = true
 -- disable swapfile
 vim.opt.swapfile = false
-vim.opt.laststatus = 3

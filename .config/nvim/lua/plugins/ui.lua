@@ -1,14 +1,14 @@
 return {
 
-    {
-        "vimpostor/vim-tpipeline",
-        config = function()
-            vim.g.tpipeline_restore = 0
-            vim.g.tpipeline_autoembed = 0
-            vim.o.laststatus = 0
-            vim.g.tpipeline_statusline = '%=%l:%c'
-        end
-    },
+    -- {
+    --     "vimpostor/vim-tpipeline",
+    --     config = function()
+    --         vim.g.tpipeline_restore = 0
+    --         vim.g.tpipeline_autoembed = 0
+    --         vim.o.laststatus = 0
+    --         vim.g.tpipeline_statusline = '%=%l:%c'
+    --     end
+    -- },
     {
         "folke/noice.nvim",
         event = "VeryLazy",
@@ -36,6 +36,7 @@ return {
     },
     {
         'kevinhwang91/nvim-ufo',
+        event = "VeryLazy",
         dependencies = 'kevinhwang91/promise-async',
         config = function()
             vim.o.foldcolumn = '0'

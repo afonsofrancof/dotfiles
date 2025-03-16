@@ -25,6 +25,7 @@ return {
             statuscolumn = { enabled = true },
             dashboard = { enabled = true },
             input = { enabled = true },
+            image = { enabled = true },
             lazygit = {
                 vim.keymap.set('n', '<leader>lg', function()
                     Snacks.lazygit.open()
@@ -46,5 +47,15 @@ return {
         end
     },
     "tpope/vim-fugitive",
-    "pimalaya/himalaya-vim"
+    {
+        "afonsofrancof/worktrees.nvim",
+        dev = true,
+        opts = {
+            mappings = {
+                create = "<leader>wtc",
+                delete = "<leader>wtd",
+                switch = "<leader>wts",
+            }
+        }
+    }
 }
