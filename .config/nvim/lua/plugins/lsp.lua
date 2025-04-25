@@ -49,6 +49,29 @@ return {
                     local fzflua = require("fzf-lua")
                     local conform = require("conform")
 
+                    local function jumpWithVirtLineDiags(jumpCount)
+                        pcall(vim.api.nvim_del_augroup_by_name, "jumpWithVirtLineDiags") -- prevent autocmd for repeated jumps
+
+                        vim.diagnostic.jump { count = jumpCount }
+
+                        local initialVirtTextConf = vim.diagnostic.config().virtual_text
+                        vim.diagnostic.config {
+                            virtual_text = false,
+                            virtual_lines = { current_line = true },
+                        }
+
+                        vim.defer_fn(function() -- deferred to not trigger by jump itself
+                            vim.api.nvim_create_autocmd("CursorMoved", {
+                                desc = "User(once): Reset diagnostics virtual lines",
+                                once = true,
+                                group = vim.api.nvim_create_augroup("jumpWithVirtLineDiags", {}),
+                                callback = function()
+                                    vim.diagnostic.config { virtual_lines = false, virtual_text = initialVirtTextConf }
+                                end,
+                            })
+                        end, 1)
+                    end
+
                     local rename_func = function()
                         return ":IncRename " .. vim.fn.expand("<cword>")
                     end
@@ -66,8 +89,8 @@ return {
                     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
                     vim.keymap.set("n", "<space>rn", rename_func, bufopts_expr)
                     vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, bufopts)
-                    vim.keymap.set("n", "<space>ge", vim.diagnostic.goto_next, bufopts)
-                    vim.keymap.set("n", "<space>gE", vim.diagnostic.goto_prev, bufopts)
+                    vim.keymap.set("n", "<space>ge", function() jumpWithVirtLineDiags(1) end, bufopts)
+                    vim.keymap.set("n", "<space>gE", function() jumpWithVirtLineDiags(-1) end, bufopts)
                     vim.keymap.set("n", "<space>fo", function() conform.format({ lsp_fallback = true }) end, bufopts)
                 end,
             })

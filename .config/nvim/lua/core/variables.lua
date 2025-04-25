@@ -47,3 +47,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.autoread = true
 -- disable swapfile
 vim.opt.swapfile = false
+-- disable statusline
+vim.o.laststatus = 1
+-- border on floating windows
+vim.o.winborder = nil
