@@ -50,6 +50,7 @@ return {
     {
         "afonsofrancof/worktrees.nvim",
         dev = true,
+        event = "VeryLazy",
         opts = {
             mappings = {
                 create = "<leader>wtc",
