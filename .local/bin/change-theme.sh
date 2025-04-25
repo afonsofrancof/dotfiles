@@ -37,6 +37,7 @@ themes[gruvbox-original-hard-dark]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"hard\"
 vim.g.gruvbox_material_foreground=\"original\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"dark\""
  kitty_theme="Gruvbox Dark Hard"'
 
@@ -52,6 +53,7 @@ themes[gruvbox-original-medium-light]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"medium\"
 vim.g.gruvbox_material_foreground=\"original\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"light\""
  kitty_theme="Gruvbox Light Medium"'
 
@@ -67,6 +69,7 @@ themes[gruvbox-material-hard-dark]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"hard\"
 vim.g.gruvbox_material_foreground=\"material\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"dark\""
  kitty_theme="Gruvbox Material Dark Hard"'
 
@@ -82,6 +85,7 @@ themes[gruvbox-material-medium-dark]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"medium\"
 vim.g.gruvbox_material_foreground=\"material\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"dark\""
  kitty_theme="Gruvbox Material Dark Medium"'
 
@@ -97,6 +101,7 @@ themes[gruvbox-material-soft-dark]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"soft\"
 vim.g.gruvbox_material_foreground=\"material\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"dark\""
  kitty_theme="Gruvbox Material Dark Soft"'
 
@@ -112,6 +117,7 @@ themes[gruvbox-material-hard-light]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"hard\"
 vim.g.gruvbox_material_foreground=\"material\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"light\""
  kitty_theme="Gruvbox Material Light Hard"'
 
@@ -127,6 +133,7 @@ themes[gruvbox-material-medium-light]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"medium\"
 vim.g.gruvbox_material_foreground=\"material\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"light\""
  kitty_theme="Gruvbox Material Light Medium"'
 
@@ -142,6 +149,7 @@ themes[gruvbox-material-soft-light]=\
 vim.g.gruvbox_material_better_performance=1
 vim.g.gruvbox_material_background=\"soft\"
 vim.g.gruvbox_material_foreground=\"material\"
+vim.g.gruvbox_material_transparent_background=2
 vim.opt.background=\"light\""
  kitty_theme="Gruvbox Material Light Soft"'
 
