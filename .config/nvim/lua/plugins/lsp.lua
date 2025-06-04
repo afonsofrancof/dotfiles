@@ -9,18 +9,6 @@ return {
         }
     },
     {
-        'nvim-java/nvim-java',
-        ft = "java",
-        config = function()
-            require('java').setup()
-            local lspconfig = require("lspconfig")
-            local capabilities = require('blink.cmp').get_lsp_capabilities(nil, true)
-            lspconfig["jdtls"].setup({
-                capabilities = capabilities,
-            })
-        end
-    },
-    {
         "smjonas/inc-rename.nvim",
         opts = {
             save_in_cmdline_history = false,
@@ -30,6 +18,28 @@ return {
         "williamboman/mason.nvim",
         event = "VeryLazy",
         opts = {}
+    },
+    {
+        "ray-x/go.nvim",
+        dependencies = {
+            "ray-x/guihua.lua",
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function(lp, opts)
+            require("go").setup(opts)
+            local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*.go",
+                callback = function()
+                    require('go.format').goimports()
+                end,
+                group = format_sync_grp,
+            })
+        end,
+        event = { "CmdlineEnter" },
+        ft = { "go", 'gomod' },
+        build = ':lua require("go.install").update_all_sync()'
     },
     {
         "neovim/nvim-lspconfig",
@@ -50,7 +60,7 @@ return {
                     local conform = require("conform")
 
                     local function jumpWithVirtLineDiags(jumpCount)
-                        pcall(vim.api.nvim_del_augroup_by_name, "jumpWithVirtLineDiags") -- prevent autocmd for repeated jumps
+                        pcall(vim.api.nvim_del_augroup_by_name, "jumpWithVirtLineDiags")
 
                         vim.diagnostic.jump { count = jumpCount }
 
@@ -60,7 +70,7 @@ return {
                             virtual_lines = { current_line = true },
                         }
 
-                        vim.defer_fn(function() -- deferred to not trigger by jump itself
+                        vim.defer_fn(function()
                             vim.api.nvim_create_autocmd("CursorMoved", {
                                 desc = "User(once): Reset diagnostics virtual lines",
                                 once = true,
