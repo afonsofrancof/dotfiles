@@ -48,3 +48,5 @@ end
 # Set up fzf
 set -U FZF_DEFAULT_OPTS "--bind 'bs:backward-delete-char/eof'"
 fzf --fish | source
+
+starship init fish | source
