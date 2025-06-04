@@ -1,14 +1,15 @@
 # Theme
-theme = gruvbox-material-medium-dark
+theme = GruvboxDarkHard
 
 # Font
-font-family = JetBrainsMono Nerd Font Mono
+font-family = IosevkaDT Nerd Font
 font-style = Medium
 font-size = 16
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
+# Misc
 window-padding-color = background
 macos-titlebar-style = hidden
 
