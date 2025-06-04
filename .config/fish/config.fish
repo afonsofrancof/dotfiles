@@ -1,12 +1,3 @@
-if status is-interactive
-and not set -q TMUX
-  tmux new-session -A -s 0
-end
-
-set -g fish_greeting
-fish_vi_key_bindings
-bind -M insert \t "__fzf_complete"
-
 # XDG directories
 set -x XDG_CONFIG_HOME "$HOME/.config"
 set -x XDG_CACHE_HOME "$HOME/.cache"
@@ -45,8 +36,22 @@ if test (uname) = "Darwin"
     eval (/opt/homebrew/bin/brew shellenv)
 end
 
-# Set up fzf
-set -U FZF_DEFAULT_OPTS "--bind 'bs:backward-delete-char/eof'"
-fzf --fish | source
 
-starship init fish | source
+if status is-interactive
+    if not set -q TMUX
+      tmux new-session -A -s 0
+    end
+
+    set -g fish_greeting
+
+    fish_vi_key_bindings
+
+    bind -M insert \t "__fzf_complete"
+
+    set -U FZF_DEFAULT_OPTS "--bind 'bs:backward-delete-char/eof'"
+    fzf --fish | source
+
+    atuin init fish --disable-up-arrow | source
+
+    starship init fish | source
+end
