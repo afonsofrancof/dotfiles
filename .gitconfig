@@ -9,7 +9,7 @@
     smudge = git-lfs smudge -- %f
 [core]
     autocrlf = input
-    pager = delta
+    pager = delta --features git
 	excludesFile = ~/.gitignore
 [interactive]
     diffFilter = delta --color-only
@@ -33,3 +33,16 @@
 	count-lines = "! git log --author=\"$1\" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf \"added lines: %s, removed lines: %s, total lines: %s\\n\", add, subs, loc }' #"
 [gpg "ssh"]
 	allowedSignersFile = ~/.ssh/allowed_signers
+[delta]
+    dark = true
+    line-numbers = true
+    hyperlinks = true
+    hyperlinks-file-link-format = "lazygit-edit://{path}:{line}"
+    true-color = always
+[delta "git"]
+    pager = less
+    paging = always
+[delta "lazygit"]
+    features = diff-so-fancy
+    hunk-header-style = omit
+    paging = never
