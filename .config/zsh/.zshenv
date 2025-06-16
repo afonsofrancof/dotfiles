@@ -30,15 +30,15 @@ function append_path() {
     eval export $1="$p:$2"
 }
 
-export EDITOR=nvim
-export VISUAL=nvim
-export READER=mupdf
-
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 export XDG_RUNTIME_DIR=/tmp
+
+export EDITOR=nvim
+export VISUAL=nvim
+export READER=mupdf
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
@@ -47,12 +47,13 @@ export GOBIN="$GOPATH/bin"
 if [[ $(uname) == "Darwin" ]]; then
     export JAVA_HOME=$(/usr/libexec/java_home)
     export GEM_HOME=$HOME/.gem
+    export GOROOT=$(brew --prefix golang)/libexec
     prepend_path PATH "/opt/homebrew/bin"
     prepend_path PATH "/opt/homebrew/opt/texlive/bin"
     append_path  PATH  $GEM_HOME/bin
 fi
 
-#BOTH
+# Common Paths
 append_path PATH "/usr/sbin:/sbin"
 append_path PATH "$HOME/.local/share/nvim/mason/bin"
 append_path PATH "$HOME/.local/bin"

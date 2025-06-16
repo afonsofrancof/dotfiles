@@ -11,11 +11,8 @@ source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # Fzf-Tab
-zvm_after_init_commands+=('source <(fzf --zsh) && enable-fzf-tab')
 source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
-
-# Vi mode
-source $ZDOTDIR/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+enable-fzf-tab
 
 # MacOS
 source $ZDOTDIR/plugins/zsh-macos.plugin.zsh
