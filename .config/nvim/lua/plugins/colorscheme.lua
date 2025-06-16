@@ -10,5 +10,9 @@ return {
         priority = 1000
     },
     { "blazkowolf/gruber-darker.nvim" },
-    { "sainnhe/everforest" }
+    { "sainnhe/everforest" },
+    {
+        "navarasu/onedark.nvim",
+        priority = 1000,
+    }
 }

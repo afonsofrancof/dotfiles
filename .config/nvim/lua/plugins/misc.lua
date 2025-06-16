@@ -48,8 +48,26 @@ return {
     },
     "tpope/vim-fugitive",
     {
+        'codethread/qmk.nvim',
+        config = function()
+            ---@type qmk.UserConfig
+            local conf = {
+                name = 'LAYOUT_lily58_pro',
+                variant = 'zmk',
+                layout = {
+                    'x x x x x x _ _ _ _ x x x x x x',
+                    'x x x x x x _ _ _ _ x x x x x x',
+                    'x x x x x x _ _ _ _ x x x x x x',
+                    'x x x x x x x _ _ x x x x x x x',
+                    '_ _ _ x x x x _ _ x x x x _ _ _',
+                }
+            }
+            require('qmk').setup(conf)
+        end
+    },
+    {
         "afonsofrancof/worktrees.nvim",
-        dev = true,
+        dev = false,
         event = "VeryLazy",
         opts = {
             mappings = {
@@ -57,6 +75,30 @@ return {
                 delete = "<leader>wtd",
                 switch = "<leader>wts",
             }
+        }
+    },
+    {
+        "afonsofrancof/osc11.nvim",
+        dev = false,
+        dependencies = {
+            "navarasu/onedark.nvim",
+        },
+        opts = {
+            on_dark = function()
+                vim.g.gruvbox_material_better_performance = 1
+                vim.g.gruvbox_material_background = "hard"
+                vim.g.gruvbox_material_foreground = "original"
+                vim.g.gruvbox_material_transparent_background = 2
+                vim.opt.background = "dark"
+                vim.cmd('colorscheme gruvbox-material')
+            end,
+            on_light = function()
+                require('onedark').setup {
+                    style = 'light'
+                }
+                -- Enable theme
+                require('onedark').load()
+            end,
         }
     }
 }
