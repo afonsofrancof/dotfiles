@@ -1,5 +1,5 @@
 # Theme
-theme = GruvboxDarkHard
+theme = dark:GruvboxDarkHard,light:AtomOneLight
 
 # Font
 font-family = IosevkaDT Nerd Font
@@ -13,6 +13,5 @@ font-feature = -dlig
 window-padding-color = background
 macos-titlebar-style = hidden
 
-term = "xterm-256color"
-
+quit-after-last-window-closed = true
 auto-update = download
