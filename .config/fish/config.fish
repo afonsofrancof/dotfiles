@@ -16,6 +16,7 @@ set -x GOBIN "$GOPATH/bin"
 if test (uname) = "Darwin"
     set -x JAVA_HOME (eval /usr/libexec/java_home)
     set -x GEM_HOME "$HOME/.gem"
+    set -x GOROOT "$(brew --prefix golang)/libexec"
     fish_add_path /opt/homebrew/bin
     fish_add_path /opt/homebrew/opt/texlive/bin
     fish_add_path $GEM_HOME/bin
@@ -39,7 +40,7 @@ end
 
 if status is-interactive
     if not set -q TMUX
-      tmux new-session -A -s 0
+        tmux new-session -A -s 0
     end
 
     set -g fish_greeting
