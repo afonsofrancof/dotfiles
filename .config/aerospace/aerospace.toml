@@ -60,6 +60,10 @@ run = 'layout floating'
 if.app-id = 'org.chromium.Chromium'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'org.wireshark.Wireshark'
+run = 'layout tiling'
+
 [mode.service.binding]
 u = ['reload-config', 'mode main']
 
