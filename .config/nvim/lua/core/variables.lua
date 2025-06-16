@@ -9,7 +9,7 @@ vim.opt.wrap = false        -- Disable line wrapping
 vim.opt.conceallevel = 2    -- Hide Org mode links (assuming you use Org mode)
 vim.opt.concealcursor = 'nc' -- Conceal text in normal mode only
 vim.opt.signcolumn = "yes"  -- Always show the sign column
-vim.o.laststatus = 1        -- Always show the status line (Note: original had '1', consider '2' for always visible)
+vim.o.laststatus = 1        -- Always show the status line
 vim.o.winborder = nil       -- Use default border for floating windows
 
 -- Indentation
@@ -38,4 +38,4 @@ vim.opt.autoread = true                                         -- Automatically
 vim.opt.swapfile = false                                        -- Disable swap files
 
 -- Formatting
-vim.opt.formatoptions:remove("ro") -- Remove 'ro' from formatoptions (assuming you don't want auto-wrapping comments)
+vim.opt.formatoptions:remove("ro") -- Remove 'ro' from formatoptions
