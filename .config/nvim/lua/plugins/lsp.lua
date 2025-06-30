@@ -154,9 +154,9 @@ return {
                 capabilities = capabilities,
                 filetypes = { 'haskell', 'lhaskell', 'cabal' },
             })
-            -- lspconfig["clangd"].setup({
-            --     capabilities = capabilities,
-            -- })
+            vim.lsp.config['clangd'].capabilities = capabilities
+            vim.lsp.enable('clangd')
+
             lspconfig["texlab"].setup({
                 capabilities = capabilities,
             })
@@ -169,15 +169,20 @@ return {
             lspconfig["pyright"].setup({
                 capabilities = capabilities,
             })
-            lspconfig["sourcekit"].setup({
-                capabilities = capabilities,
-            })
+            vim.lsp.config["tinymist"].capabilities = capabilities
+            vim.lsp.enable("tinymist")
         end,
     },
     {
         'mrcjkb/rustaceanvim',
         version = '^5',
         lazy = false
+    },
+    {
+        'chomosuke/typst-preview.nvim',
+        ft = 'typst',
+        version = '1.*',
+        opts = {},
     },
     {
         "leoluz/nvim-dap-go",
