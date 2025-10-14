@@ -46,9 +46,10 @@ export GOBIN="$GOPATH/bin"
 # OS-specific exports
 if [[ $(uname) == "Darwin" ]]; then
     prepend_path PATH "/opt/homebrew/bin"
-    export JAVA_HOME=$(/usr/libexec/java_home)
+    if [ -n "$(/usr/libexec/java_home 2>/dev/null)" ]; then
+        export JAVA_HOME=$(/usr/libexec/java_home)
+    fi
     export GEM_HOME=$HOME/.gem
-    export GOROOT=$(brew --prefix golang)/libexec
     prepend_path PATH "/opt/homebrew/opt/texlive/bin"
     append_path  PATH  $GEM_HOME/bin
 fi
