@@ -41,6 +41,4 @@ function cd()
   builtin cd "$@" && ls;
 }
 
-
-
-
+alias bb="brew bundle --file=~/Brewfile"
