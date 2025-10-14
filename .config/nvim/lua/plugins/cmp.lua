@@ -8,9 +8,6 @@ return {
         },
         version = '*',
         opts = {
-            enabled = function()
-                return not (string.find(vim.bo.filetype, "himalaya") or string.find(vim.bo.filetype, "mail"))
-            end,
             keymap = {
                 preset = 'default',
                 ['<Up>'] = {},

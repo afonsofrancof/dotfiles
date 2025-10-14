@@ -19,28 +19,6 @@ return {
         event = "VeryLazy",
         opts = {}
     },
-    -- {
-    --     "ray-x/go.nvim",
-    --     dependencies = {
-    --         "ray-x/guihua.lua",
-    --         "neovim/nvim-lspconfig",
-    --         "nvim-treesitter/nvim-treesitter",
-    --     },
-    --     config = function(lp, opts)
-    --         require("go").setup(opts)
-    --         local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-    --         vim.api.nvim_create_autocmd("BufWritePre", {
-    --             pattern = "*.go",
-    --             callback = function()
-    --                 require('go.format').goimports()
-    --             end,
-    --             group = format_sync_grp,
-    --         })
-    --     end,
-    --     event = { "CmdlineEnter" },
-    --     ft = { "go", 'gomod' },
-    --     build = ':lua require("go.install").update_all_sync()'
-    -- },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -169,48 +147,47 @@ return {
             lspconfig["pyright"].setup({
                 capabilities = capabilities,
             })
-            vim.lsp.config["tinymist"].capabilities = capabilities
+            vim.lsp.config["tinymist"] = {
+                capabilities = capabilities,
+                settings = {
+                    -- exportPdf = "onType",
+                    -- outputPath = "$root/$name",
+                    formatterMode = "typstyle",
+                    fontPaths = {
+                        "./fonts"
+                    }
+                },
+                on_attach = function(client, bufnr)
+                    vim.keymap.set("n", "<leader>tp", function()
+                        client:exec_cmd({
+                            title = "pin",
+                            command = "tinymist.pinMain",
+                            arguments = { vim.api.nvim_buf_get_name(0) },
+                        }, { bufnr = bufnr })
+                    end, { desc = "[T]inymist [P]in", noremap = true })
+                    vim.keymap.set("n", "<leader>tu", function()
+                        client:exec_cmd({
+                            title = "unpin",
+                            command = "tinymist.pinMain",
+                            arguments = { vim.v.null },
+                        }, { bufnr = bufnr })
+                    end, { desc = "[T]inymist [U]npin", noremap = true })
+                end,
+
+            }
             vim.lsp.enable("tinymist")
+            vim.lsp.config['nil_ls'].capabilities = capabilities
+            vim.lsp.enable('nil_ls')
         end,
-    },
-    {
-        'mrcjkb/rustaceanvim',
-        version = '^5',
-        lazy = false
     },
     {
         'chomosuke/typst-preview.nvim',
         ft = 'typst',
         version = '1.*',
-        opts = {},
-    },
-    {
-        "leoluz/nvim-dap-go",
-        ft = "go",
-        dependencies = "mfussenegger/nvim-dap",
-        opts = {}
-    },
-    {
-        "rcarriga/nvim-dap-ui",
-        event = "VeryLazy",
-        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-        config = function()
-            local dap = require("dap")
-            local dapui = require("dapui")
-            dapui.setup()
-            dap.listeners.after.event_initialized["dapui_config"] = function()
-                dapui.open()
-            end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited["dapui_config"] = function()
-                dapui.close()
-            end
-        end
-    },
-    {
-        "mfussenegger/nvim-dap",
+        opts = {
+            extra_args = {"--font-path=fonts"},
+            invert_colors = '{"rest": "auto","image": "never"}'
+        },
     },
     {
         "stevearc/conform.nvim",

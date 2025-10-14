@@ -25,7 +25,14 @@ return {
             statuscolumn = { enabled = true },
             dashboard = { enabled = true },
             input = { enabled = true },
-            image = { enabled = true },
+            image = {
+                doc = {
+                    inline = false,
+                    float = true,
+                    max_width = 10,
+                    max_height = 5,
+                }
+            },
             lazygit = {
                 vim.keymap.set('n', '<leader>lg', function()
                     Snacks.lazygit.open()
@@ -48,26 +55,8 @@ return {
     },
     "tpope/vim-fugitive",
     {
-        'codethread/qmk.nvim',
-        config = function()
-            ---@type qmk.UserConfig
-            local conf = {
-                name = 'LAYOUT_lily58_pro',
-                variant = 'zmk',
-                layout = {
-                    'x x x x x x _ _ _ _ x x x x x x',
-                    'x x x x x x _ _ _ _ x x x x x x',
-                    'x x x x x x _ _ _ _ x x x x x x',
-                    'x x x x x x x _ _ x x x x x x x',
-                    '_ _ _ x x x x _ _ x x x x _ _ _',
-                }
-            }
-            require('qmk').setup(conf)
-        end
-    },
-    {
         "afonsofrancof/worktrees.nvim",
-        dev = false,
+        dev = true,
         event = "VeryLazy",
         opts = {
             mappings = {

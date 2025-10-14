@@ -53,5 +53,4 @@ return {
             })
         end
     },
-    "kyoh86/vim-jsonl"
 }
