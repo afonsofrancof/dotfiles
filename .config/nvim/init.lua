@@ -1,67 +1,66 @@
+-- Set the leader key
 vim.g.mapleader = " "
-
-vim.opt.termguicolors = true
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.wrap = false
-vim.opt.conceallevel = 2
-vim.opt.concealcursor = 'nc'
-vim.opt.signcolumn = "yes"
-vim.o.laststatus = 1
-vim.o.winborder = nil
-
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-
-vim.opt.iskeyword:append("_")
-vim.opt.scrolloff = 10
+-- Appearance
+vim.opt.termguicolors = true  -- Enable 24-bit colors
+vim.opt.number = true         -- Show line numbers
+vim.opt.relativenumber = true -- Show relative line numbers
+vim.opt.wrap = false          -- Disable line wrapping
+vim.opt.conceallevel = 2      -- Hide Org mode links (assuming you use Org mode)
+vim.opt.concealcursor = 'nc'  -- Conceal text in normal mode only
+vim.opt.signcolumn = "yes"    -- Always show the sign column
+vim.o.laststatus = 1          -- Always show the status line
+vim.o.winborder = nil         -- Use default border for floating windows
+-- Indentation
+vim.opt.tabstop = 4           -- Number of spaces a tab represents
+vim.opt.softtabstop = 4       -- Number of spaces a <Tab> in Insert mode equals
+vim.opt.shiftwidth = 4        -- Number of spaces to use for autoindent
+vim.opt.expandtab = true      -- Use spaces instead of tabs
+vim.opt.smartindent = true    -- Smart auto-indenting
+-- Searching
+vim.opt.hlsearch = false      -- Disable highlighting of search matches
+vim.opt.incsearch = true      -- Show partial matches while typing
+-- Behavior and Navigation
+vim.opt.iskeyword:append("_") -- Add '_' to the list of keyword characters
+vim.opt.scrolloff = 10        -- Keep 10 lines above/below cursor when scrolling
 vim.opt.sidescrolloff = 10
 vim.opt.smoothscroll = true
+-- File Management
+vim.opt.undodir = os.getenv("XDG_STATE_HOME") .. "/nvim/undodir"     -- Directory for undo files
+vim.opt.undofile = true                                              -- Save undo history
+vim.opt.backup = true                                                -- Create backup files
+vim.opt.backupdir = os.getenv("XDG_STATE_HOME") .. "/nvim/backupdir" -- Directory for backup files
+vim.opt.autoread = true                                              -- Automatically reload changed files
+vim.opt.swapfile = false                                             -- Disable swap files
+-- Formatting
+vim.opt.formatoptions:remove("ro")                                   -- Remove 'ro' from formatoptions
+-- Clipboard (testing unnamedplus... might like it)
+vim.opt.clipboard = "unnamedplus"
 
-vim.opt.undodir = os.getenv("XDG_STATE_HOME") .. "/nvim/undodir"
-vim.opt.undofile = true
-vim.opt.backup = true
-vim.opt.backupdir = os.getenv("XDG_STATE_HOME") .. "/nvim/backupdir"
-vim.opt.autoread = true
-vim.opt.swapfile = false
-
-vim.opt.formatoptions:remove("ro")
-
--- keymaps --
+--Move lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
+--quickfix keybinds
 vim.keymap.set("n", "<C-p>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-n>", "<cmd>cnext<CR>zz")
-
+--buffer keybinds
 vim.keymap.set("n", "<A-h>", "<cmd>bp<CR>")
 vim.keymap.set("n", "<A-l>", "<cmd>bn<CR>")
-
+--jk as escape
 vim.keymap.set("i", "jk", "<esc>")
-
+-- Copy to system clipboard
 vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
+-- Paste from system clipboard in normal mode
 vim.keymap.set('n', 'gp', '"+p', { desc = 'Paste from system clipboard' })
+-- Paste from system clipboard in visual mode without overwriting the clipboard
 vim.keymap.set('x', 'gp', '"+P', { desc = 'Paste from system clipboard' })
-
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "G", "Gzz")
-
+--Center screen after some motions
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Center cursor after moving down half-page" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Center cursor after moving down half-page" })
+vim.keymap.set("n", "G", "Gzz", { desc = "Center cursor after moving down half-page" })
+--Run lua stuff (ty teej)
 vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<space>x", ":.lua<CR>")
 vim.keymap.set("v", "<space>x", ":lua<CR>")
-
-vim.keymap.set("v", "<A-J>", function()
-    for _ = 1, vim.fn.getpos("'>")[2] - vim.fn.getpos("'<")[2] - 1 do
-        vim.api.nvim_command("normal! J")
-    end
-end)
 
 -- autocmds --
 vim.api.nvim_create_autocmd("VimLeavePre", {
@@ -73,7 +72,7 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
     end
 })
 
--- pack hooks --
+-- pack --
 vim.api.nvim_create_autocmd('PackChanged', {
     callback = function(ev)
         local name, kind = ev.data.spec.name, ev.data.kind
@@ -84,7 +83,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
     end
 })
 
--- plugins --
 vim.pack.add({
     'https://github.com/sainnhe/gruvbox-material',
     'https://github.com/sainnhe/everforest',
@@ -94,7 +92,8 @@ vim.pack.add({
     'https://github.com/rachartier/tiny-glimmer.nvim',
     { src = 'https://github.com/echasnovski/mini.surround', version = vim.version.range('*') },
     { src = 'https://github.com/echasnovski/mini.pairs',    version = vim.version.range('*') },
-    { src = 'https://github.com/echasnovski/mini.ai',       version = 'HEAD' },
+    { src = 'https://github.com/echasnovski/mini.ai',       version = vim.version.range('*') },
+    --  Adds S in regex to handle case conversion
     'https://github.com/tpope/vim-abolish',
     'https://github.com/mbbill/undotree',
     { src = 'https://github.com/ThePrimeagen/harpoon', version = 'harpoon2' },
@@ -133,18 +132,20 @@ require('mini.surround').setup()
 
 require('mini.pairs').setup({
     mappings = {
+        -- Prevents the action if the cursor is just before any character or next to a "\".
         ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\][%s%)%]%}]" },
         ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\][%s%)%]%}]" },
         ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\][%s%)%]%}]" },
+        -- This is default (prevents the action if the cursor is just next to a "\").
         [")"] = { action = "close", pair = "()", neigh_pattern = "[^\\]." },
         ["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
         ["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
+        -- Prevents the action if the cursor is just before or next to any character.
         ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "[^%w][^%w]", register = { cr = false } },
         ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^%w][^%w]", register = { cr = false } },
         ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^%w][^%w]", register = { cr = false } },
     },
 })
-vim.keymap.set('n', 'S', 'saiw', { silent = true })
 
 local gen_spec = require('mini.ai').gen_spec
 require('mini.ai').setup({
@@ -184,26 +185,6 @@ require('tiny-glimmer').setup({
     }
 })
 
--- treesitter --
-require('nvim-treesitter.config').setup({
-    auto_install = true,
-    highlight = {
-        enable = true,
-        disable = { "latex" },
-        use_languagetree = true,
-    },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-        },
-    },
-    indent = { enable = true },
-})
-
 -- fzf-lua --
 local fzflua = require('fzf-lua')
 fzflua.register_ui_select()
@@ -237,14 +218,61 @@ vim.keymap.set('n', '<leader>fh', fzflua.help_tags)
 vim.keymap.set({ 'n', 'v' }, '<leader>fc', fzflua.commands)
 
 -- lsp --
-require('lazydev').setup({
-    library = {
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-    },
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lua",
+    callback = function()
+        require('lazydev').setup({
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        })
+    end,
 })
 
 require('inc_rename').setup({ save_in_cmdline_history = false })
 require('mason').setup()
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = function(ev)
+        local conform = require("conform")
+
+        local function jumpWithVirtLineDiags(jumpCount)
+            pcall(vim.api.nvim_del_augroup_by_name, "jumpWithVirtLineDiags")
+            vim.diagnostic.jump({ count = jumpCount })
+            local initialVirtTextConf = vim.diagnostic.config().virtual_text
+            vim.diagnostic.config({
+                virtual_text = false,
+                virtual_lines = { current_line = true },
+            })
+            vim.defer_fn(function()
+                vim.api.nvim_create_autocmd("CursorMoved", {
+                    once = true,
+                    group = vim.api.nvim_create_augroup("jumpWithVirtLineDiags", {}),
+                    callback = function()
+                        vim.diagnostic.config({ virtual_lines = false, virtual_text = initialVirtTextConf })
+                    end,
+                })
+            end, 1)
+        end
+
+        local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+        vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
+        vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, bufopts)
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+        vim.keymap.set("n", "gr", fzflua.lsp_references, bufopts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+        vim.keymap.set("n", "gi", fzflua.lsp_implementations, bufopts)
+        vim.keymap.set("n", "<space>k", vim.lsp.buf.signature_help, bufopts)
+        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set("n", "<space>rn", function() return ":IncRename " .. vim.fn.expand("<cword>") end, { expr = true })
+        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, bufopts)
+        vim.keymap.set("n", "<space>ge", function() jumpWithVirtLineDiags(1) end, bufopts)
+        vim.keymap.set("n", "<space>gE", function() jumpWithVirtLineDiags(-1) end, bufopts)
+        vim.keymap.set("n", "<space>fo", function() conform.format({ lsp_fallback = true }) end, bufopts)
+    end,
+})
 
 local capabilities = require('blink.cmp').get_lsp_capabilities(nil, true)
 
@@ -316,47 +344,27 @@ vim.lsp.enable('clangd')
 vim.lsp.config['nil_ls'] = { capabilities = capabilities }
 vim.lsp.enable('nil_ls')
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-    callback = function(ev)
-        local conform = require("conform")
+-- vimtex --
+if vim.loop.os_uname().sysname == "Darwin" then
+    vim.g.vimtex_view_method = 'sioyek'
+else
+    vim.g.vimtex_view_method = 'zathura'
+end
+vim.g.vimtex_quickfix_ignore_filters = { 'Overfull', 'Underfull' }
+vim.g.vimtex_quickfix_open_on_warning = 0
+vim.g.vimtex_compiler_method = 'latexmk'
+vim.g.vimtex_compiler_latexmk = {
+    out_dir = 'build',
+    options = {
+        "-verbose",
+        "-shell-escape",
+        "-file-line-error",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+    },
+}
+vim.g.vimtex_view_automatic = 1
 
-        local function jumpWithVirtLineDiags(jumpCount)
-            pcall(vim.api.nvim_del_augroup_by_name, "jumpWithVirtLineDiags")
-            vim.diagnostic.jump({ count = jumpCount })
-            local initialVirtTextConf = vim.diagnostic.config().virtual_text
-            vim.diagnostic.config({
-                virtual_text = false,
-                virtual_lines = { current_line = true },
-            })
-            vim.defer_fn(function()
-                vim.api.nvim_create_autocmd("CursorMoved", {
-                    once = true,
-                    group = vim.api.nvim_create_augroup("jumpWithVirtLineDiags", {}),
-                    callback = function()
-                        vim.diagnostic.config({ virtual_lines = false, virtual_text = initialVirtTextConf })
-                    end,
-                })
-            end, 1)
-        end
-
-        local bufopts = { noremap = true, silent = true, buffer = ev.buf }
-        vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
-        vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, bufopts)
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-        vim.keymap.set("n", "gr", fzflua.lsp_references, bufopts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-        vim.keymap.set("n", "gi", fzflua.lsp_implementations, bufopts)
-        vim.keymap.set("n", "<space>k", vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set("n", "<space>rn", function() return ":IncRename " .. vim.fn.expand("<cword>") end, { expr = true })
-        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set("n", "<space>ge", function() jumpWithVirtLineDiags(1) end, bufopts)
-        vim.keymap.set("n", "<space>gE", function() jumpWithVirtLineDiags(-1) end, bufopts)
-        vim.keymap.set("n", "<space>fo", function() conform.format({ lsp_fallback = true }) end, bufopts)
-    end,
-})
 
 -- blink.cmp --
 require('blink.cmp').setup({
@@ -401,11 +409,11 @@ require('blink.cmp').setup({
                     kind_icon = {
                         ellipsis = false,
                         text = function(ctx)
-                            local kind_icon = require('mini.icons').get('lsp', ctx.kind)
+                            local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
                             return kind_icon
                         end,
                         highlight = function(ctx)
-                            local _, hl = require('mini.icons').get('lsp', ctx.kind)
+                            local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
                             return hl
                         end,
                     },
@@ -448,10 +456,11 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     group = vim.api.nvim_create_augroup("lint", { clear = true }),
     callback = function() lint.try_lint() end,
 })
-vim.keymap.set("n", "<leader>li", function() lint.try_lint() end, { desc = "Trigger linting" })
 
 -- dap --
 local dap = require('dap')
+
+-- LLDB adapter (codelldb)
 dap.adapters.codelldb = {
     type = "server",
     port = "${port}",
@@ -460,6 +469,8 @@ dap.adapters.codelldb = {
         args = { "--port", "${port}" },
     },
 }
+
+-- C/C++ configuration
 dap.configurations.c = {
     {
         name = "Launch",
@@ -479,33 +490,6 @@ require('dap-view').setup({
     auto_toggle = true,
 })
 
--- vimtex --
-if vim.loop.os_uname().sysname == "Darwin" then
-    vim.g.vimtex_view_method = 'sioyek'
-else
-    vim.g.vimtex_view_method = 'zathura'
-end
-vim.g.vimtex_quickfix_ignore_filters = { 'Overfull', 'Underfull' }
-vim.g.vimtex_quickfix_open_on_warning = 0
-vim.g.vimtex_compiler_method = 'latexmk'
-vim.g.vimtex_compiler_latexmk = {
-    out_dir = 'build',
-    options = {
-        "-verbose",
-        "-shell-escape",
-        "-file-line-error",
-        "-synctex=1",
-        "-interaction=nonstopmode",
-    },
-}
-vim.g.vimtex_view_automatic = 1
-
--- typst-preview --
-require('typst-preview').setup({
-    extra_args = { "--font-path=fonts" },
-    invert_colors = '{"rest": "auto","image": "never"}',
-})
-
 -- harpoon --
 local harpoon = require('harpoon')
 harpoon:setup()
@@ -520,20 +504,11 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
 require('oil').setup({
     float = { preview_split = "right" },
 })
-
-local function open_oil_split()
-    local width = math.floor(vim.o.columns * 0.2)
-    vim.cmd("vsplit")
-    vim.cmd(string.format("vertical resize %d", width))
-    require("oil").open()
-end
-
-vim.keymap.set('n', '<leader>o', function() require("oil").open_float() end)
-vim.keymap.set('n', '<leader>O', open_oil_split)
+vim.api.nvim_set_keymap('n', '<leader>o', ':lua require("oil").open_float()<CR>', { noremap = true, silent = true })
 
 -- smart-splits --
 local splits = require('smart-splits')
-splits.setup()
+splits.setup({})
 vim.keymap.set('n', '<S-F5>', splits.resize_left)
 vim.keymap.set('n', '<S-F6>', splits.resize_down)
 vim.keymap.set('n', '<S-F7>', splits.resize_up)
@@ -546,8 +521,6 @@ vim.keymap.set('n', '<F8>', splits.move_cursor_right)
 -- git --
 require('blame').setup()
 require('todo-comments').setup()
-vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end, { desc = "Next todo comment" })
-vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Previous todo comment" })
 
 -- dev plugins --
 vim.cmd.packadd("osc11.nvim")
@@ -574,20 +547,27 @@ require('worktrees').setup({
 -- winbar --
 
 function RenderWinbar()
+    -- Get the path and expand variables.
     local path = vim.fs.normalize(vim.fn.expand '%:p' --[[@as string]])
 
+    -- No special styling for diff views.
     if vim.startswith(path, 'diffview') then
         return string.format('%%#Winbar#%s', path)
     end
 
+    -- Replace slashes by arrows.
     local separator = ' %#WinbarSeparator# '
 
     local prefix, prefix_path = '', ''
     local folder_icon = ''
 
+    -- If the window gets too narrow, shorten the path and drop the prefix.
     if vim.api.nvim_win_get_width(0) < math.floor(vim.o.columns / 3) then
         path = vim.fn.pathshorten(path)
     else
+        -- For some special folders, add a prefix instead of the full path (making
+        -- sure to pick the longest prefix).
+        ---@type table<string, string>
         local special_dirs = {
             DOTFILES = vim.env.XDG_CONFIG_HOME,
             GITS = vim.env.HOME .. '/gits',
@@ -596,7 +576,7 @@ function RenderWinbar()
         }
         for dir_name, dir_path in pairs(special_dirs) do
             if vim.startswith(path, vim.fs.normalize(dir_path)) and #dir_path > #prefix_path then
-                prefix, prefix_path, folder_icon = dir_name, dir_path, MiniIcons.get('file', path)
+                prefix, prefix_path, folder_icon = dir_name, dir_path, MiniIcons.get('file',path)
             end
         end
         if prefix ~= '' then
@@ -605,6 +585,7 @@ function RenderWinbar()
         end
     end
 
+    -- Remove leading slash.
     path = path:gsub('^/', '')
 
     vim.api.nvim_set_hl(0, "Winbar", { link = "Normal" })
@@ -616,10 +597,10 @@ function RenderWinbar()
         prefix,
         table.concat(
             vim.iter(vim.split(path, '/'))
-            :map(function(segment)
-                return string.format('%%#Winbar#%s', segment)
-            end)
-            :totable(),
+                :map(function(segment)
+                    return string.format('%%#Winbar#%s', segment)
+                end)
+                :totable(),
             separator
         ),
     }
@@ -630,10 +611,10 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     desc = 'Attach winbar',
     callback = function(args)
         if
-            not vim.api.nvim_win_get_config(0).zindex
-            and vim.bo[args.buf].buftype == ''
-            and vim.api.nvim_buf_get_name(args.buf) ~= ''
-            and not vim.wo[0].diff
+            not vim.api.nvim_win_get_config(0).zindex -- Not a floating window
+            and vim.bo[args.buf].buftype == '' -- Normal buffer
+            and vim.api.nvim_buf_get_name(args.buf) ~= '' -- Has a file name
+            and not vim.wo[0].diff -- Not in diff mode
         then
             vim.wo.winbar = "%{%v:lua.RenderWinbar()%}"
         end
