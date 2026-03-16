@@ -4,6 +4,8 @@ if [[ -o interactive ]]; then
     fi
 fi
 
+bindkey -e
+
 source $ZDOTDIR/setup-history.zsh
 source $ZDOTDIR/prompts/simple-two-line.zsh
 source $ZDOTDIR/functions.zsh

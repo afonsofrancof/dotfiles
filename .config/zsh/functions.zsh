@@ -36,9 +36,18 @@ alias nvim_update='nvim --headless "+Lazy! sync" +qa'
 
 alias ..="cd .."
 
-function cd()
-{
+function cd(){
   builtin cd "$@" && ls;
 }
 
 alias bb="brew bundle --file=~/Brewfile"
+
+function ssh(){
+    if [ -n "$TMUX" ]; then
+        tmux rename-window "$(echo "$@" | awk '{print $NF}' | sed 's/.*@//')"
+        command ssh "$@"
+        tmux set-window-option automatic-rename on >/dev/null
+    else
+        command ssh "$@"
+    fi
+}
