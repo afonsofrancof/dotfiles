@@ -18,10 +18,6 @@
 	path = .config/zsh/plugins/zsh-vi-mode
 	url = https://github.com/jeffreytse/zsh-vi-mode
 	branch = master
-[submodule ".config/zsh/prompts/pure"]
-	path = .config/zsh/prompts/pure
-	url = https://github.com/sindresorhus/pure
-	branch = main
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
