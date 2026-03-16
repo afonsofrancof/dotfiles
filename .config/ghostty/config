@@ -1,5 +1,5 @@
 # Theme
-theme = dark:Gruvbox Dark Hard,light:Atom One Light
+theme = dark:everforest-dark-hard,light:Atom One Light
 
 # Font
 font-family = IosevkaDT Nerd Font
