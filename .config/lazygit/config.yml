@@ -1,12 +1,11 @@
-git: 
-    paging:
-        colorArg: always
-        pager: delta --features lazygit
-        useConfig: false
-    autoFetch: false
+git:
+  pagers:
+    - pager: delta --features lazygit
+      colorArg: always
+      useConfig: false
+  autoFetch: false
 gui:
   nerdFontsVersion: 3
-
 customCommands:
   - key: "C"
     command: "git commit -m '{{ .Form.Type }}{{if .Form.Scopes}}({{ .Form.Scopes }}){{end}}: {{ .Form.Description }}'"
