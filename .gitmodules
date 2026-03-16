@@ -38,3 +38,9 @@
 	path = .config/xmobar/xmobar-git
 	url = https://codeberg.org/xmobar/xmobar
 	branch = master
+[submodule ".config/nvim/pack/local/opt/worktrees.nvim"]
+	path = .config/nvim/pack/local/opt/worktrees.nvim
+	url = git@github.com:afonsofrancof/worktrees.nvim
+[submodule ".config/nvim/pack/local/opt/osc11.nvim"]
+	path = .config/nvim/pack/local/opt/osc11.nvim
+	url = git@github.com:afonsofrancof/osc11.nvim
