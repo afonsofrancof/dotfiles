@@ -15,3 +15,6 @@ macos-titlebar-style = hidden
 
 quit-after-last-window-closed = true
 auto-update = download
+
+clipboard-read = allow
+clipboard-write = allow
