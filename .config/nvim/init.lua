@@ -10,6 +10,7 @@ vim.opt.concealcursor = 'nc'  -- Conceal text in normal mode only
 vim.opt.signcolumn = "yes"    -- Always show the sign column
 vim.o.laststatus = 1          -- Always show the status line
 vim.o.winborder = nil         -- Use default border for floating windows
+vim.o.foldlevelstart = 99     -- Start with all folds closed
 -- Indentation
 vim.opt.tabstop = 4           -- Number of spaces a tab represents
 vim.opt.softtabstop = 4       -- Number of spaces a <Tab> in Insert mode equals
@@ -33,9 +34,6 @@ vim.opt.autoread = true                                              -- Automati
 vim.opt.swapfile = false                                             -- Disable swap files
 -- Formatting
 vim.opt.formatoptions:remove("ro")                                   -- Remove 'ro' from formatoptions
--- Clipboard (testing unnamedplus... might like it)
-vim.opt.clipboard = "unnamedplus"
-
 --Move lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
