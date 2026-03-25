@@ -120,13 +120,49 @@ vim.pack.add({
     'https://github.com/nvim-tree/nvim-web-devicons',
 })
 
+local treesitter = require('nvim-treesitter')
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function(args)
+        if
+            vim.list_contains(
+                treesitter.get_installed(),
+                vim.treesitter.language.get_lang(args.match)
+            )
+        then
+            vim.treesitter.start(args.buf)
+        end
+    end,
+})
+
 -- colorscheme --
 require('onedark').setup({ style = 'dark' })
 require('onedark').load()
 
+
 -- mini --
 require('mini.icons').setup()
 require('mini.surround').setup()
+
+-- snacks --
+require('snacks').setup({
+    bigfile = { enabled = true },
+    notifier = { enabled = true },
+    notify = { enabled = true },
+    quickfile = { enabled = true },
+    statuscolumn = { enabled = true },
+    input = { enabled = true },
+    image = {
+        doc = {
+            inline = false,
+            float = true,
+            max_width = 10,
+            max_height = 5,
+        }
+    },
+    words = {
+        debounce = 10
+    }
+})
 
 require('mini.pairs').setup({
     mappings = {
@@ -151,27 +187,6 @@ require('mini.ai').setup({
         F = gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
     },
     n_lines = 1000
-})
-
--- snacks --
-require('snacks').setup({
-    bigfile = { enabled = true },
-    notifier = { enabled = true },
-    notify = { enabled = true },
-    quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
-    input = { enabled = true },
-    image = {
-        doc = {
-            inline = false,
-            float = true,
-            max_width = 10,
-            max_height = 5,
-        }
-    },
-    words = {
-        debounce = 10
-    }
 })
 
 -- tiny-glimmer --
@@ -574,7 +589,7 @@ function RenderWinbar()
         }
         for dir_name, dir_path in pairs(special_dirs) do
             if vim.startswith(path, vim.fs.normalize(dir_path)) and #dir_path > #prefix_path then
-                prefix, prefix_path, folder_icon = dir_name, dir_path, MiniIcons.get('file',path)
+                prefix, prefix_path, folder_icon = dir_name, dir_path, MiniIcons.get('file', path)
             end
         end
         if prefix ~= '' then
@@ -595,10 +610,10 @@ function RenderWinbar()
         prefix,
         table.concat(
             vim.iter(vim.split(path, '/'))
-                :map(function(segment)
-                    return string.format('%%#Winbar#%s', segment)
-                end)
-                :totable(),
+            :map(function(segment)
+                return string.format('%%#Winbar#%s', segment)
+            end)
+            :totable(),
             separator
         ),
     }
@@ -609,10 +624,10 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     desc = 'Attach winbar',
     callback = function(args)
         if
-            not vim.api.nvim_win_get_config(0).zindex -- Not a floating window
-            and vim.bo[args.buf].buftype == '' -- Normal buffer
+            not vim.api.nvim_win_get_config(0).zindex     -- Not a floating window
+            and vim.bo[args.buf].buftype == ''            -- Normal buffer
             and vim.api.nvim_buf_get_name(args.buf) ~= '' -- Has a file name
-            and not vim.wo[0].diff -- Not in diff mode
+            and not vim.wo[0].diff                        -- Not in diff mode
         then
             vim.wo.winbar = "%{%v:lua.RenderWinbar()%}"
         end
