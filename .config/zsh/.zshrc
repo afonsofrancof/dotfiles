@@ -5,6 +5,9 @@ if [[ -o interactive ]]; then
 fi
 
 bindkey -e
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey '^H' backward-kill-word
 
 source $ZDOTDIR/setup-history.zsh
 source $ZDOTDIR/prompts/simple-two-line.zsh
