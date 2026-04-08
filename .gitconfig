@@ -1,6 +1,6 @@
 [user]
     email = afonso@francof.net
-    name = afranco
+    name = afonsofrancof
     signingkey = ~/.ssh/signing_key
 [filter "lfs"]
     process = git-lfs filter-process
