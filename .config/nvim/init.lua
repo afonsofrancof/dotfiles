@@ -119,11 +119,12 @@ vim.pack.add({
     'https://github.com/folke/todo-comments.nvim',
     'https://github.com/nvim-lua/plenary.nvim',
     'https://github.com/nvim-tree/nvim-web-devicons',
+    'https://github.com/mistweaverco/kulala.nvim'
 })
 
 -- NVIM 0.12 EXPERIMENTAL
 vim.cmd.packadd('nvim.undotree')
-vim.o.cmdheight=0
+vim.o.cmdheight = 0
 require('vim._core.ui2').enable()
 
 local treesitter = require('nvim-treesitter')
@@ -235,6 +236,16 @@ vim.keymap.set('n', '<leader>fg', fzflua.live_grep)
 vim.keymap.set('n', '<leader>fb', fzflua.buffers)
 vim.keymap.set('n', '<leader>fh', fzflua.help_tags)
 vim.keymap.set({ 'n', 'v' }, '<leader>fc', fzflua.commands)
+
+-- kulala --
+require("kulala").setup({
+    global_keymaps = true,
+    global_keymaps_prefix = "<leader>R",
+    kulala_keymaps_prefix = "<leader>",
+    ui = {
+        max_response_size = 1000000
+    }
+})
 
 -- lsp --
 vim.api.nvim_create_autocmd("FileType", {
