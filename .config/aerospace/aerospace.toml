@@ -74,6 +74,11 @@ run = 'layout tiling'
 if.app-id = 'eu.opencloud.desktop'
 run = 'layout tiling'
 
+[[on-window-detected]]
+if.app-id = 'org.darktable'
+if.window-title-regex-substring = 'preferences'
+run = 'layout floating'
+
 [mode.service.binding]
 u = ['reload-config', 'mode main']
 
