@@ -34,6 +34,7 @@ vim.opt.autoread = true                                              -- Automati
 vim.opt.swapfile = false                                             -- Disable swap files
 -- Formatting
 vim.opt.formatoptions:remove("ro")                                   -- Remove 'ro' from formatoptions
+vim.opt.completeopt = { 'menuone', 'noinsert', 'popup', 'fuzzy' }
 --Move lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -82,8 +83,8 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 vim.pack.add({
-    'https://github.com/sainnhe/gruvbox-material',
-    'https://github.com/sainnhe/everforest',
+    --'https://github.com/sainnhe/gruvbox-material',
+    --'https://github.com/sainnhe/everforest',
     'https://github.com/navarasu/onedark.nvim',
     { src = 'https://github.com/echasnovski/mini.icons',    version = vim.version.range('*') },
     'https://github.com/folke/snacks.nvim',
@@ -93,7 +94,6 @@ vim.pack.add({
     { src = 'https://github.com/echasnovski/mini.ai',       version = vim.version.range('*') },
     --  Adds S in regex to handle case conversion
     'https://github.com/tpope/vim-abolish',
-    'https://github.com/mbbill/undotree',
     { src = 'https://github.com/ThePrimeagen/harpoon', version = 'harpoon2' },
     'https://github.com/stevearc/oil.nvim',
     'https://github.com/mrjones2014/smart-splits.nvim',
@@ -105,6 +105,7 @@ vim.pack.add({
     'https://github.com/smjonas/inc-rename.nvim',
     'https://github.com/williamboman/mason.nvim',
     { src = 'https://github.com/saghen/blink.cmp',     version = vim.version.range('*') },
+    { src = 'https://github.com/saghen/blink.compat',  version = vim.version.range('*') },
     'https://github.com/rafamadriz/friendly-snippets',
     'https://github.com/stevearc/conform.nvim',
     'https://github.com/mfussenegger/nvim-lint',
@@ -112,13 +113,18 @@ vim.pack.add({
     'https://github.com/mfussenegger/nvim-dap',
     'https://github.com/igorlfs/nvim-dap-view',
     'https://github.com/lervag/vimtex',
-    { src = 'https://github.com/chomosuke/typst-preview.nvim', version = vim.version.range('1.*') },
+    'https://github.com/micangl/cmp-vimtex',
     'https://github.com/tpope/vim-fugitive',
     'https://github.com/FabijanZulj/blame.nvim',
     'https://github.com/folke/todo-comments.nvim',
     'https://github.com/nvim-lua/plenary.nvim',
     'https://github.com/nvim-tree/nvim-web-devicons',
 })
+
+-- NVIM 0.12 EXPERIMENTAL
+vim.cmd.packadd('nvim.undotree')
+vim.o.cmdheight=0
+require('vim._core.ui2').enable()
 
 local treesitter = require('nvim-treesitter')
 vim.api.nvim_create_autocmd('FileType', {
@@ -248,8 +254,24 @@ require('mason').setup()
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
-        local conform = require("conform")
+        -- local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+        -- vim.lsp.completion.enable(true, client.id, ev.buf, {
+        --     autotrigger = true,
+        --     convert = function(item)
+        --         local kind_name = vim.lsp.protocol.CompletionItemKind[item.kind] or 'Text'
+        --         local icon, hl = require('mini.icons').get('lsp', kind_name:lower())
+        --         return {
+        --             abbr = (item.label or ''):gsub('%b()', ''),
+        --             kind = icon and (icon .. ' ' .. kind_name) or kind_name,
+        --             kind_hlgroup = hl,
+        --             menu = item.detail or '',
+        --         }
+        --     end,
+        -- })
+        -- vim.o.pumheight = 7
+        -- vim.o.pumborder = 'single'
 
+        local conform = require("conform")
         local function jumpWithVirtLineDiags(jumpCount)
             pcall(vim.api.nvim_del_augroup_by_name, "jumpWithVirtLineDiags")
             vim.diagnostic.jump({ count = jumpCount })
@@ -269,7 +291,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end, 1)
         end
 
+        vim.api.nvim_set_hl(0, 'Pmenu', { link = 'Float' })
         local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+        vim.keymap.set('i', '<C-Space>', vim.lsp.completion.get)
         vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
         vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, bufopts)
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
@@ -357,9 +381,14 @@ vim.lsp.enable('clangd')
 vim.lsp.config['nil_ls'] = { capabilities = capabilities }
 vim.lsp.enable('nil_ls')
 
+vim.lsp.config['pyright'] = { capabilities = capabilities }
+vim.lsp.enable('pyright')
+
 -- vimtex --
 if vim.loop.os_uname().sysname == "Darwin" then
-    vim.g.vimtex_view_method = 'sioyek'
+    vim.g.vimtex_view_method = 'skim'
+    -- vim.g.vimtex_view_method = 'zathura'
+    -- vim.g.vimtex_view_zathura_use_synctex = 0
 else
     vim.g.vimtex_view_method = 'zathura'
 end
@@ -380,71 +409,79 @@ vim.g.vimtex_view_automatic = 1
 
 
 -- blink.cmp --
-require('blink.cmp').setup({
-    keymap = {
-        preset = 'default',
-        ['<Up>'] = {},
-        ['<Down>'] = {},
-        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-    },
-    appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'mono',
-    },
-    sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
-        providers = {
-            lazydev = {
-                name = "LazyDev",
-                module = "lazydev.integrations.blink",
-                fallbacks = { "lsp" },
-            },
+if vim.g.vscode ~= 1 then
+    require('blink.cmp').setup({
+        keymap = {
+            preset = 'default',
+            ['<Up>'] = {},
+            ['<Down>'] = {},
+            ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+            ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
         },
-    },
-    signature = {
-        enabled = true,
-        window = { show_documentation = false },
-    },
-    cmdline = {
-        completion = { menu = { auto_show = true } },
-    },
-    completion = {
-        accept = { auto_brackets = { enabled = true } },
-        menu = {
-            border = "single",
-            winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
-            winblend = 0,
-            draw = {
-                treesitter = { 'lsp' },
-                columns = { { 'kind_icon' }, { 'label' } },
-                components = {
-                    kind_icon = {
-                        ellipsis = false,
-                        text = function(ctx)
-                            local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
-                            return kind_icon
-                        end,
-                        highlight = function(ctx)
-                            local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
-                            return hl
-                        end,
-                    },
+        appearance = {
+            use_nvim_cmp_as_default = true,
+            nerd_font_variant = 'mono',
+        },
+        sources = {
+            default = { 'vimtex', 'lsp', 'path', 'snippets', 'buffer' },
+            providers = {
+                lazydev = {
+                    name = "LazyDev",
+                    module = "lazydev.integrations.blink",
+                    fallbacks = { "lsp" },
+                },
+                vimtex = {
+                    name = "vimtex",
+                    min_keyword_length = 2,
+                    module = "blink.compat.source",
+                    score_offset = 80,
                 },
             },
         },
-        documentation = {
-            auto_show = true,
-            window = {
-                border = 'single',
-                max_width = 160,
-                max_height = 30,
-                winblend = 0,
+        signature = {
+            enabled = true,
+            window = { show_documentation = false },
+        },
+        cmdline = {
+            completion = { menu = { auto_show = true } },
+        },
+        completion = {
+            accept = { auto_brackets = { enabled = true } },
+            menu = {
+                border = "single",
                 winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+                winblend = 0,
+                draw = {
+                    treesitter = { 'lsp' },
+                    columns = { { 'kind_icon' }, { 'label' } },
+                    components = {
+                        kind_icon = {
+                            ellipsis = false,
+                            text = function(ctx)
+                                local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                                return kind_icon
+                            end,
+                            highlight = function(ctx)
+                                local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                                return hl
+                            end,
+                        },
+                    },
+                },
+            },
+            documentation = {
+                auto_show = true,
+                window = {
+                    border = 'single',
+                    max_width = 160,
+                    max_height = 30,
+                    winblend = 0,
+                    winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None",
+                },
             },
         },
-    },
-})
+    })
+end
 
 -- conform --
 require('conform').setup({
