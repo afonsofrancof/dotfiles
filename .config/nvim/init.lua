@@ -1,28 +1,30 @@
 -- Set the leader key
 vim.g.mapleader = " "
 -- Appearance
-vim.opt.termguicolors = true  -- Enable 24-bit colors
-vim.opt.number = true         -- Show line numbers
-vim.opt.relativenumber = true -- Show relative line numbers
-vim.opt.wrap = false          -- Disable line wrapping
-vim.opt.conceallevel = 2      -- Hide Org mode links (assuming you use Org mode)
-vim.opt.concealcursor = 'nc'  -- Conceal text in normal mode only
-vim.opt.signcolumn = "yes"    -- Always show the sign column
-vim.o.laststatus = 1          -- Always show the status line
-vim.o.winborder = nil         -- Use default border for floating windows
-vim.o.foldlevelstart = 99     -- Start with all folds closed
+vim.opt.termguicolors = true     -- Enable 24-bit colors
+vim.opt.number = true            -- Show line numbers
+vim.opt.relativenumber = true    -- Show relative line numbers
+vim.opt.wrap = false             -- Disable line wrapping
+vim.opt.conceallevel = 2         -- Hide Org mode links
+vim.opt.concealcursor = 'nc'     -- Conceal text in normal mode only
+vim.opt.cursorline = true        -- Show current line
+vim.opt.cursorlineopt = 'number' -- Only show the number in bold, not a line highlight
+vim.opt.signcolumn = "yes"       -- Always show the sign column
+vim.o.laststatus = 1             -- Always show the status line
+vim.o.winborder = nil            -- Use default border for floating windows
+vim.o.foldlevelstart = 99        -- Start with all folds closed
 -- Indentation
-vim.opt.tabstop = 4           -- Number of spaces a tab represents
-vim.opt.softtabstop = 4       -- Number of spaces a <Tab> in Insert mode equals
-vim.opt.shiftwidth = 4        -- Number of spaces to use for autoindent
-vim.opt.expandtab = true      -- Use spaces instead of tabs
-vim.opt.smartindent = true    -- Smart auto-indenting
+vim.opt.tabstop = 4              -- Number of spaces a tab represents
+vim.opt.softtabstop = 4          -- Number of spaces a <Tab> in Insert mode equals
+vim.opt.shiftwidth = 4           -- Number of spaces to use for autoindent
+vim.opt.expandtab = true         -- Use spaces instead of tabs
+vim.opt.smartindent = true       -- Smart auto-indenting
 -- Searching
-vim.opt.hlsearch = false      -- Disable highlighting of search matches
-vim.opt.incsearch = true      -- Show partial matches while typing
+vim.opt.hlsearch = false         -- Disable highlighting of search matches
+vim.opt.incsearch = true         -- Show partial matches while typing
 -- Behavior and Navigation
-vim.opt.iskeyword:append("_") -- Add '_' to the list of keyword characters
-vim.opt.scrolloff = 10        -- Keep 10 lines above/below cursor when scrolling
+vim.opt.iskeyword:append("_")    -- Add '_' to the list of keyword characters
+vim.opt.scrolloff = 10           -- Keep 10 lines above/below cursor when scrolling
 vim.opt.sidescrolloff = 10
 vim.opt.smoothscroll = true
 -- File Management
@@ -35,6 +37,14 @@ vim.opt.swapfile = false                                             -- Disable 
 -- Formatting
 vim.opt.formatoptions:remove("ro")                                   -- Remove 'ro' from formatoptions
 vim.opt.completeopt = { 'menuone', 'noinsert', 'popup', 'fuzzy' }
+--Move between wrapped lines, but keep relative jumps working
+vim.keymap.set({ "n", "v" }, "k", function()
+    return vim.v.count == 0 and "gk" or "k"
+end, { expr = true })
+
+vim.keymap.set({ "n", "v" }, "j", function()
+    return vim.v.count == 0 and "gj" or "j"
+end, { expr = true })
 --Move lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -113,6 +123,8 @@ vim.pack.add({
     'https://github.com/mfussenegger/nvim-dap',
     'https://github.com/igorlfs/nvim-dap-view',
     'https://github.com/lervag/vimtex',
+    -- This needs universal-ctags on macos (can be installed from brew)
+    --'https://github.com/ludovicchabant/vim-gutentags',
     'https://github.com/micangl/cmp-vimtex',
     'https://github.com/tpope/vim-fugitive',
     'https://github.com/FabijanZulj/blame.nvim',
@@ -124,8 +136,8 @@ vim.pack.add({
 
 -- NVIM 0.12 EXPERIMENTAL
 vim.cmd.packadd('nvim.undotree')
-vim.o.cmdheight = 0
-require('vim._core.ui2').enable()
+vim.o.cmdheight = 1
+--require('vim._core.ui2').enable()
 
 local treesitter = require('nvim-treesitter')
 vim.api.nvim_create_autocmd('FileType', {
@@ -353,21 +365,6 @@ vim.lsp.config["lua_ls"] = {
 }
 vim.lsp.enable('lua_ls')
 
-vim.lsp.config["ltex"] = {
-    capabilities = capabilities,
-    on_attach = function() require("ltex_extra").setup() end,
-    settings = {
-        ltex = {
-            language = "en-GB",
-            additionalRules = {
-                enablePickyRules = true,
-                languageModel = '~/Downloads/ngrams/',
-            },
-        },
-    },
-}
-vim.lsp.enable('ltex')
-
 vim.lsp.config["hls"] = {
     capabilities = capabilities,
     filetypes = { 'haskell', 'lhaskell', 'cabal' },
@@ -376,6 +373,16 @@ vim.lsp.enable('hls')
 
 vim.lsp.config["texlab"] = { capabilities = capabilities }
 vim.lsp.enable('texlab')
+
+vim.lsp.config["harper_ls"] = {
+    settings = {
+        ["harper-ls"] = {
+            dialect = "British",
+            excludePatterns = { "*acronyms.tex", "*.go" }
+        }
+    }
+}
+vim.lsp.enable('harper_ls')
 
 vim.lsp.config["bashls"] = { capabilities = capabilities }
 vim.lsp.enable('bashls')
@@ -397,7 +404,8 @@ vim.lsp.enable('pyright')
 
 -- vimtex --
 if vim.loop.os_uname().sysname == "Darwin" then
-    vim.g.vimtex_view_method = 'skim'
+    vim.g.vimtex_view_method = 'sioyek'
+    vim.g.vimtex_view_sioyek_options = '--reuse-window'
     -- vim.g.vimtex_view_method = 'zathura'
     -- vim.g.vimtex_view_zathura_use_synctex = 0
 else
@@ -418,6 +426,10 @@ vim.g.vimtex_compiler_latexmk = {
 }
 vim.g.vimtex_view_automatic = 1
 
+--  gutentags --
+if vim.loop.os_uname().sysname == "Darwin" then
+    vim.g.gutentags_ctags_executable = '/opt/homebrew/bin/ctags'
+end
 
 -- blink.cmp --
 if vim.g.vscode ~= 1 then
@@ -511,7 +523,7 @@ require('conform').setup({
 
 -- lint --
 local lint = require('lint')
-lint.linters_by_ft = { go = { "golangcilint" } }
+--lint.linters_by_ft = { go = { "golangcilint" } }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     group = vim.api.nvim_create_augroup("lint", { clear = true }),
