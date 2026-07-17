@@ -75,6 +75,10 @@ if.app-id = 'eu.opencloud.desktop'
 run = 'layout tiling'
 
 [[on-window-detected]]
+if.app-id = 'info.sioyek.sioyek'
+run = 'layout tiling'
+
+[[on-window-detected]]
 if.app-id = 'org.darktable'
 if.window-title-regex-substring = 'preferences'
 run = 'layout floating'
