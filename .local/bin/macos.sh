@@ -30,6 +30,10 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 
+# Window corners
+defaults write -g NSConvolutionOverride1 -float 8
+defaults write -g NSSplitViewItemGlassMinimumCornerRadius -float 8
+
 echo "Restarting affected services..."
 killall Dock
 killall Finder
