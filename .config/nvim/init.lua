@@ -158,6 +158,21 @@ require('onedark').setup({ style = 'dark' })
 require('onedark').load()
 
 
+-- abolish --
+-- Add preview to the :S command
+local function subvert_preview(opts, preview_ns, preview_buf)
+    vim.cmd("silent! " .. opts.line1 .. "," .. opts.line2 .. "Subvert" .. opts.args)
+    return 2
+end
+
+vim.api.nvim_create_user_command("S", function(opts)
+    vim.cmd(opts.line1 .. "," .. opts.line2 .. "Subvert" .. opts.args)
+end, {
+    nargs = "*",
+    range = "%",
+    preview = subvert_preview,
+})
+
 -- mini --
 require('mini.icons').setup()
 require('mini.surround').setup()
